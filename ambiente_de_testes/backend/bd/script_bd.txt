@@ -38,11 +38,11 @@ Create table produto(
 	descricao text,
 	item_pe varchar(255),
 	unidade_medida varchar(255),
-	Foreign key (prod_categoria) references 	categoria(nome_categoria)
+	Foreign key (prod_categoria) references categoria(nome_categoria)
 );
 
 create table pedido_compra_individual(
-	id serial primary key,
+		id bigint auto_increment primary key,
     	siape_requisitante varchar(255),
     	valor_estimado_unidade float,
     	qtde int,
@@ -50,18 +50,33 @@ create table pedido_compra_individual(
     	justificativa_qtde text,
     	prioridade int,
     	data_compra varchar(255),
-	vinculacao varchar(255),
-	almoxerifado varchar(255),
+		vinculacao varchar(255),
+		almoxerifado varchar(255),
     	ciencia varchar(255),
     	atorizacao varchar(255),
     	foreign key(siape_requisitante) references usuario(siape)
 );
 
 create table pedidofinal(
-	id serial primary key,
+		id bigint auto_increment primary key,
     	siape_requisitante varchar(255),
     	habilitacao_espcif text,
     	dotacao_orcamentaria text,
     	foreign key (siape_requisitante) references usuario(siape)    
 );
 
+create table pedido_pci(
+	id serial,
+    id_pci bigint,
+    id_produto int,
+    foreign key (id_pci) references pedido_compra_individual(id),
+    foreign key (id_produto) references produto(sipac)
+);
+
+create table pedidofinal_pedidoindiv(
+	id serial primary key,
+	id_pedidofinal bigint,
+    id_pedidoindividual bigint,
+    foreign key (id_pedidofinal) references pedidofinal(id),
+    foreign key(id_pedidoindividual) references pedido_compra_individual(id)
+);
