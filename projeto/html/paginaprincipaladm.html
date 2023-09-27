@@ -3,27 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/pag_principal.css">
+    <link rel="shortcut icon" href="img/logoifc.png" type="image/x-icon">
     <title>SCA - Sistema de Compras Acadêmicas</title>
-    <link rel="icon" type="image/x-icon" href="/img/logoifc.png">
 </head>
 <body>
     <header>
-        <h1 id="sca" style="color:white">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
-    </header>
-    <div class="divperfil">
-            <strong>NOME</strong>
-            <p>SETOR XXXXXX <br>CAMPUS BLUMENAU</p>
-    </div>
-    <div class="container">
-        <div class="center-adm">
-            <a id="link" class="btn-menu btn-menu1" href="#">GERAR FORMULÁRIO DO CAMPUS</a><br>
-            <a id="link" class="btn-menu btn-menu1" href="#">ATUALIZAR ITEM</a><br>
-            <a id="link" class="btn-menu btn-menu1" href="cadastronovoadm.html">CRIAR CONTA DE ADMINISTRADOR</a>
-            <a id="link" class="btn-menu btn-menu1" href="attcadastroadm.html">ATUALIZAR/EXCLUIR CADASTRO</a>
+        <div class="titulo">        
+            <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
+            <a href="#">SAIR</a>
         </div>
-    </div>
+        <div class="divperfil">
+            <h2><b>NOME</b><br>
+                SETOR XXXXXX <br>
+                CAMPUS BLUMENAU</h2>
+        </div>
+    </header>
+    <main>
+        <div class="center">
+            <div class="botoes-menu">
+                <button class="btn-menu"><a href="#">FAZER PEDIDO</a></button><br>
+                <button class="btn-menu"><a href="#">HISTÓRICO DE PEDIDOS</a></button><br>
+                <button class="btn-menu"><a href="#">GERAR FORMULÁRIO DO CAMPUS</a></button><br>
+            </div>
+            <div class="botoes-menu">
+                <button class="btn-menu"><a href="#">ATUALIZAR ITEM</a></button><br>
+                <button class="btn-menu"><a href="cadastronovoadm.html">CRIAR CONTA DE ADMINISTRADOR</a></button><br>
+                <button class="btn-menu"><a href="attcadastro.html">ATUALIZAR/EXCLUIR CONTA</a></button><br>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

@@ -35,15 +35,24 @@ a {
     background-color: #000080;
     padding: 0 1.5vw;
     height: 5vh; 
-    justify-content: flex-start; 
+    justify-content: space-between; 
     align-items: center;
     color: white;
+    flex-wrap: wrap;
 }
 
 /* título em si */
 .sca {
     font-size: 1.2rem;
     margin: 0;
+}
+
+.titulo a {
+    color: white;
+    text-decoration: none;
+}
+.titulo a:hover {
+    text-decoration: underline;
 }
 
 /* DIV PARA AS INFORMAÇÕES DO PERFIL */
@@ -104,26 +113,44 @@ a {
         width: 38vw;
     }
 }
-@media (min-width: 576px) and (max-width: 767px) {
+@media (min-width: 580px) and (max-width: 767px) {
     .btn-menu {
         width: 45vw;
     }
 }
-@media (min-width: 474px) and (max-width: 575px) {
+@media (min-width: 474px) and (max-width: 580px) {
     .btn-menu {
         width: 50vw;
     }
     .titulo {
-        height: 6vh;
+        height: auto;
+    }
+    .center {
+        flex-direction: column;
+        height: auto;
     }
 }
 @media (min-width: 372px) and (max-width: 473px) {
     .btn-menu {
         width: 60vw;
     }
+    .titulo {
+        height: auto;
+    }
+    .center {
+        flex-direction: column;
+        height: auto;
+    }
 }
 @media (max-width: 371px) {
     .btn-menu {
         width: 80vw;
+    }
+    .titulo {
+        height: auto;
+    }
+    .center {
+        flex-direction: column;
+        height: auto;
     }
 }
