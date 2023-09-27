@@ -1,21 +1,29 @@
-header {
-    display: block;
-    background-color: #000080;
-    padding: 0.1em 1em;
-    height: 1.8em;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+.titulo {
+    display: flex;
+    background-color: #000080;
+    padding: 0 1.5vw;
+    height: 5vh; 
+    justify-content: flex-start; 
+    align-items: center;
+    color: white;
+}
+ 
 body {
-    margin: 0;
     background-color: white;
     height: 100vh;
     font-family: Arial, sans-serif;
 }
 
 /* FONTE DO HEADER (pq bootstrap estraga tudo)*/
-#sca {
-    font-size: 1.3em;
-    font-family: Arial, sans-serif;
+.sca {
+    font-size: 1.5vw;
+    margin: 0;
 }
 
 /* FORMATAÇÃO DO BOTÃO LOG IN */
@@ -56,11 +64,19 @@ body {
 
 /* DIV PARA AS INFORMAÇÕES DO PERFIL */
 .divperfil {
-    display: block;
+    display: flex;
+    padding: 0 1.5vw;
     background-color: #c4d2ec;
-    padding: 1em 1em;
-    height: 7em;
+    height: 15vh;
     line-height: 1.5;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.divperfil h2 {
+    font-weight: normal;
+    font-size: 1.2vw;
+    margin: 0;
 }
 
 /* CLASSE PARA FORMATAR OS BOTÕES NA ESQUERDA (PÁGINA DO LOGIN) */
@@ -107,32 +123,27 @@ body {
 
 /* FORMATAÇÃO DO BOTÃO MENU*/
 .btn-menu {
-    border: none;
+    border: 0.1em solid black;
     display: inline-block;
     border-radius: 3em;
-    color: #FFFFFF;
     text-align: center;
-    width: 30em;
+    width: 35vw;
+    padding: 2.5vh;
     transition-duration: 0.4s;
     cursor: pointer;
     margin: 1em 1em;
+    background-color: white;
 }
 
-.btn-menu1 {
-    background-color: white; 
-    color: black; 
-    border: 0.1em solid black;
+.btn-menu a {
+    font-size: 1.5vw;
 }
 
-.btn-menu1:hover {
-    background-color: black;
+.btn-menu:hover {
+    background-color: #000080;
+}
+.btn-menu:hover a{
     color: white;
-}
-
-.btn-menu span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
 }
 
 /* CLASSE PARA CONSEGUIR FAZER DETALHE DAS JANELAS */
@@ -157,13 +168,20 @@ body {
 
 /* DIV PARA CENTRALIZAR */
 .center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    line-height: 5.0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 75vh;
+}
+
+/* div para englobar os botões do menu da pag principal*/
+.botoes-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 /* DIV PARA CENTRALIZAR (4 BOTOÕES ADMS) */
@@ -185,8 +203,9 @@ body {
 }
 
 /* DEIXAR LINKS SEM AZUL */
-#link {
+a {
     text-decoration: none;
+    color: black;
 }
 
 /* BARRA DE PESQUISA */
@@ -230,4 +249,76 @@ color: black;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .divperfil h2 {
+        font-size: 1.5vw;
+    }
+    .sca {
+        font-size: 1.5vw;
+    }
+    .btn-menu {
+        width: 38vw;
+    }
+    .btn-menu a {
+        font-size: 1.9vw;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+    .divperfil h2 {
+        font-size: 2vw;
+    }
+    .sca {
+        font-size: 2vw;
+    }
+    .btn-menu {
+        width: 45vw;
+    }
+    .btn-menu a {
+        font-size: 2.5vw;
+    }
+}
+@media (min-width: 474px) and (max-width: 575px) {
+    .divperfil h2 {
+        font-size: 2.2vw;
+    }
+    .sca {
+        font-size: 2.4vw;
+    }
+    .btn-menu {
+        width: 50vw;
+    }
+    .btn-menu a {
+        font-size: 2.8vw;
+    }
+}
+
+@media (min-width: 372px) and (max-width: 473px) {
+    .divperfil h2 {
+        font-size: 2.5vw;
+    }
+    .sca {
+        font-size: 2.8vw;
+    }
+    .btn-menu {
+        width: 60vw;
+    }
+    .btn-menu a {
+        font-size: 3vw;
+    }
+}
+@media (max-width: 371px) {
+    .divperfil h2 {
+        font-size: 3vw;
+    }
+    .sca {
+        font-size: 3vw;
+    }
+    .btn-menu {
+        width: 80vw;
+    }
+    .btn-menu a {
+        font-size: 4vw;
+    }
 }
