@@ -1,6 +1,4 @@
-CREATE DATABASE compras;
-
-USE compras;
+USE compras_ifc;
 
 CREATE TABLE prazo(
 	id SERIAL PRIMARY KEY,
