@@ -2,7 +2,7 @@ html {
     font-size: 16px;
 }
 
-* {
+* { 
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -42,7 +42,7 @@ a {
 
 /* título em si */
 .sca {
-    font-size: 1.5vw;
+    font-size: 1.2rem;
     margin: 0;
 }
 
@@ -59,7 +59,7 @@ a {
 
 .divperfil h2 {
     font-weight: normal;
-    font-size: 1.2vw;
+    font-size: 1rem;
     margin: 0;
 }
 
@@ -78,7 +78,7 @@ a {
 }
 
 .btn-menu a {
-    font-size: 1.5vw;
+    font-size: 1.3rem;
 }
 
 .btn-menu:hover {
@@ -100,73 +100,30 @@ a {
 /* RESPONSIVIDADE */
 
 @media (min-width: 768px) and (max-width: 991px) {
-    .divperfil h2 {
-        font-size: 1.5vw;
-    }
-    .sca {
-        font-size: 1.5vw;
-    }
     .btn-menu {
         width: 38vw;
     }
-    .btn-menu a {
-        font-size: 1.9vw;
-    }
 }
 @media (min-width: 576px) and (max-width: 767px) {
-    .divperfil h2 {
-        font-size: 2vw;
-    }
-    .sca {
-        font-size: 2vw;
-    }
     .btn-menu {
         width: 45vw;
     }
-    .btn-menu a {
-        font-size: 2.5vw;
-    }
 }
 @media (min-width: 474px) and (max-width: 575px) {
-    .divperfil h2 {
-        font-size: 2.2vw;
-    }
-    .sca {
-        font-size: 2.4vw;
-    }
     .btn-menu {
         width: 50vw;
     }
-    .btn-menu a {
-        font-size: 2.8vw;
+    .titulo {
+        height: 6vh;
     }
 }
-
 @media (min-width: 372px) and (max-width: 473px) {
-    .divperfil h2 {
-        font-size: 2.5vw;
-    }
-    .sca {
-        font-size: 2.8vw;
-    }
     .btn-menu {
         width: 60vw;
     }
-    .btn-menu a {
-        font-size: 3vw;
-    }
 }
 @media (max-width: 371px) {
-    .divperfil h2 {
-        font-size: 3vw;
-    }
-    .sca {
-        font-size: 3vw;
-    }
     .btn-menu {
         width: 80vw;
-    }
-    .btn-menu a {
-        font-size: 4vw;
     }
 }
