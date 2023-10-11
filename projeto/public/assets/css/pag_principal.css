@@ -1,5 +1,6 @@
 html {
     font-size: 16px;
+    --azul: #000080
 }
 
 * { 
@@ -32,7 +33,7 @@ a {
 /* Div do titulo do header (Sistema de compras...)*/
 .titulo {
     display: flex;
-    background-color: #000080;
+    background-color: var(--azul);
     padding: 0 1.5vw;
     height: 5vh; 
     justify-content: space-between; 
@@ -91,7 +92,7 @@ a {
 }
 
 .btn-menu:hover {
-    background-color: #000080;
+    background-color: var(--azul);
 }
 .btn-menu:hover a{
     color: white;
