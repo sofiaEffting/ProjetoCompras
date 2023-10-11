@@ -39,7 +39,7 @@ class User{
     }
 
     public function setSiape($siape){
-        $this->email = $siape;
+        $this->siape = $siape;
     }
 
     public function getSiape(){
