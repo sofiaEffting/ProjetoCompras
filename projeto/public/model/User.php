@@ -15,11 +15,37 @@ class User{
     {
 
         $conn = ConnectionController::connectDb();
-        var_dump($conn);
-        //conectar no banco de dados
-        echo 'teste';
+
+        $sql  = "SELECT * FROM usuario WHERE siape=:siape";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(":siape", $this->siape);
+        $stmt->execute();
+
+        if ($stmt->rowCount()) {
+            $result = $stmt->fetch();
+
+            if ($result['senha'] == $this->senha) {
+                
+                return true;
+
+            } else {
+                echo 'nao encontrado';
+            }
+        }
+
+        throw new \Exception('Login inválido');
+
     }
 
+    public function setSiape($siape){
+        $this->email = $siape;
+    }
+
+    public function getSiape(){
+        return $this->siape;
+    }
+    
     public function setEmail($email){
         $this->email = $email;
     }

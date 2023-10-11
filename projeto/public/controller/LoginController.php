@@ -10,6 +10,7 @@ class LoginController
         $twig   = new Twig\Environment($loader,[
             'auto_reload' => true
         ]);
+
         $template = $twig->load('login.html');
 
         return $template->render();
@@ -21,9 +22,16 @@ class LoginController
 
         try{
             $user = new User;
+            $user->setSiape($siape);
+            $user->setSenha($senha);
             $user->validateLogin();
+
+            header('Location: ../view/paginaprincipaladm.html');
+
         }catch(\Exception $e){
+
             header('Location: ../index.php');
+            
         }
     }
 }
