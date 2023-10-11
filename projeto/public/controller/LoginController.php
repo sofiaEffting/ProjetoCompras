@@ -1,7 +1,5 @@
 <?php
 
-
-
 class LoginController
 {
     public function index()
@@ -17,20 +15,22 @@ class LoginController
     }
 
     public function check(){
+
         $siape = $_POST['siape'];
         $senha = md5($_POST['senha']);
 
         try{
+
             $user = new User;
             $user->setSiape($siape);
             $user->setSenha($senha);
             $user->validateLogin();
 
-            header('Location: ../view/paginaprincipaladm.html');
+            header('Location: http://localhost:8001/main');
 
-        }catch(\Exception $e){
+        } catch(\Exception $e) {
 
-            header('Location: ../index.php');
+            header('Location: http://localhost:8001/');
             
         }
     }

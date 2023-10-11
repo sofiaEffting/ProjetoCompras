@@ -13,7 +13,6 @@ class User{
 
     public function validateLogin()
     {
-
         $conn = ConnectionController::connectDb();
 
         $sql  = "SELECT * FROM usuario WHERE siape=:siape";
@@ -27,6 +26,8 @@ class User{
 
             if ($result['senha'] == $this->senha) {
                 
+                $_SESSION['user'] = $result;
+
                 return true;
 
             } else {
