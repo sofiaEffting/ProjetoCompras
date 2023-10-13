@@ -7,6 +7,7 @@
     require_once './core/Core.php';
 
     //controllers
+    require_once './controller/CadastroController.php';
     require_once './controller/LoginController.php';
     require_once './controller/ConnectionController.php';
     require_once './controller/MainController.php';

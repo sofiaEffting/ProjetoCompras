@@ -10,6 +10,8 @@ class User{
     private $nome;
     private $email;
     private $senha;
+    private $setor;
+    private $telefone;
 
     public function validateLogin()
     {
@@ -59,6 +61,22 @@ class User{
         $this->senha = $senha;
     }
 
+    public function setTelefone($telefone){
+        $this->telefone = $telefone;
+    }
+
+    public function setSetor($setor){
+        $this->setor = $setor;
+    }
+
+    public function setNivelAcesso($nivelAcesso){
+        $this->nivelAcesso = $nivelAcesso;
+    }
+
+    public function setSiape($siape){
+        $this->siape = $siape;
+    }
+
     public function getEmail(){
         return $this->email;
     }
@@ -69,5 +87,17 @@ class User{
 
     public function getSenha(){
         return $this->nome;
+    }
+
+    public function getSiape(){
+        return $this->siape;
+    }
+
+    public function getTelefone(){
+        return $this->telefone;
+    }
+
+    public function getSetor(){
+        return $this->setor;
     }
 }
