@@ -9,8 +9,10 @@ class MainController{
         ]);
 
         $template = $twig->load('main.html');
+        $params['user'] = $_SESSION['user']; 
 
-        return $template->render();
+
+        return $template->render($params);
     }
 
     public function logout() {

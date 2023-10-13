@@ -14,8 +14,8 @@
             <a href="http://localhost:8001/main/logout">SAIR</a>
         </div>
         <div class="divperfil">
-            <h2><b>NOME</b><br>
-                SETOR XXXXXX <br>
+            <h2><b>Usuário: {{user['nome']}}</b><br>
+                SETOR: {{user['setor']}} <br>
                 CAMPUS BLUMENAU</h2>
         </div>
     </header>
@@ -27,11 +27,14 @@
                 <button class="btn-menu"><a href="#">GERAR FORMULÁRIO DO CAMPUS</a></button><br>
             </div>
             <div class="botoes-menu">
-                <button class="btn-menu"><a href="#">ATUALIZAR ITEM</a></button><br>
+                <button class="btn-menu"><a href="http://localhost:8001/item/index">ITENS</a></button><br>
                 <button class="btn-menu"><a href="cadastronovoadm.html">CRIAR CONTA DE ADMINISTRADOR</a></button><br>
                 <button class="btn-menu"><a href="attcadastro.html">ATUALIZAR/EXCLUIR CONTA</a></button><br>
             </div>
         </div>
     </main>
+    {% for item in user %}
+        {{item}}
+    {% endfor %}
 </body>
 </html>

@@ -10,6 +10,7 @@
     require_once './controller/LoginController.php';
     require_once './controller/ConnectionController.php';
     require_once './controller/MainController.php';
+    require_once './controller/ItemController.php';
 
     //models
     require_once './model/User.php';
