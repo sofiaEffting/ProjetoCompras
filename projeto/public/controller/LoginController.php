@@ -11,7 +11,9 @@ class LoginController
 
         $template = $twig->load('login.html');
 
-        return $template->render();
+        $params['error'] = $_SESSION['msg_error'] ?? null;
+
+        return $template->render($params);
     }
 
     public function check(){
@@ -29,6 +31,8 @@ class LoginController
             header('Location: http://localhost:8001/main');
 
         } catch(\Exception $e) {
+
+            $_SESSION['msg_error'] = array('msg' => $e->getMessage(), 'count' => 0);
 
             header('Location: http://localhost:8001/');
             
