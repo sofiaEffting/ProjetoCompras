@@ -15,6 +15,7 @@
 
     //models
     require_once './model/User.php';
+    require_once './model/Item.php';
 
     //twig
     require_once 'vendor/autoload.php';
