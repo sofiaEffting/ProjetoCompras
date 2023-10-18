@@ -33,7 +33,7 @@ class CadastroController
             $user->setSiape($siape);
             $user->setTelefone($telefone);
             $user->setSetor($setor);
-            echo'<script>window.alert("oi")</script>';
+            $user->cadastrar();
         }catch(\Exception $e){
             header('Location: ../index.php');
         }
