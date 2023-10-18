@@ -101,6 +101,10 @@ class User{
         VALUES ('$this->siape','$this->nivelAcesso','$this->setor','$this->nome','$this->telefone','$this->email','$this->senha');";
 
         $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        if($stmt->execute()){
+            return true;
+        } else{
+            echo "Ocorreu um erro durante o cadastro";
+        }
     }
 }
