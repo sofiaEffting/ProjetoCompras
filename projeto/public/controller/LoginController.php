@@ -28,13 +28,13 @@ class LoginController
             $user->setSenha($senha);
             $user->validateLogin();
 
-            header('Location: http://localhost:8001/main/index');
+            header('Location: ../main/index');
 
         } catch(\Exception $e) {
 
             $_SESSION['msg_error'] = array('msg' => $e->getMessage(), 'count' => 0);
 
-            header('Location: http://localhost:8001/');
+            header('Location: ../index.php');
             
         }
     }

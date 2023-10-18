@@ -19,8 +19,6 @@ class MainController{
         unset($_SESSION);
         session_destroy();
 
-        echo 'sair';
-
-        header('Location: http://localhost:8001/projetocompras/projeto/public');
+        header('Location: ../index.php');
     }
 }
