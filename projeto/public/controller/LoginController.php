@@ -13,7 +13,7 @@ class LoginController
 
         $params['error'] = $_SESSION['msg_error'] ?? null;
 
-        return $template->render($params);
+        //return $template->render($params);
     }
 
     public function check(){

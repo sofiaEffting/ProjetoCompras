@@ -21,6 +21,6 @@ class MainController{
 
         echo 'sair';
 
-        header('Location: http://localhost:8001/');
+        header('Location: http://localhost:8001/projetocompras/projeto/public');
     }
 }

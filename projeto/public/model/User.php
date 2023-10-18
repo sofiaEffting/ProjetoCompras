@@ -73,10 +73,6 @@ class User{
         $this->nivelAcesso = $nivelAcesso;
     }
 
-    public function setSiape($siape){
-        $this->siape = $siape;
-    }
-
     public function getEmail(){
         return $this->email;
     }
@@ -87,10 +83,6 @@ class User{
 
     public function getSenha(){
         return $this->nome;
-    }
-
-    public function getSiape(){
-        return $this->siape;
     }
 
     public function getTelefone(){
