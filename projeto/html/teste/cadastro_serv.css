@@ -1,0 +1,65 @@
+html {
+    font-size: 16px;
+    --azul: #000080
+}
+
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+/* Div do titulo do header (Sistema de compras...)*/
+.titulo {
+    display: flex;
+    background-color: var(--azul);
+    padding: 0 1.5vw;
+    height: 5vh; 
+    justify-content: space-between; 
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* título em si */
+.sca {
+    font-size: 1.2rem;
+    margin: 0;
+    color: white;
+    flex-wrap: wrap;
+}
+
+.titulo a {
+    color: white;
+    text-decoration: none;
+}
+.titulo a:hover {
+    text-decoration: underline;
+}
+
+.mobile {
+    display: none;
+    margin: 0;
+    font-size: 1.2rem;
+    color: white;
+    font-weight: bold;
+}
+
+h2 {
+    color: white;
+    background-color: var(--azul);
+}
+
+/* DIV PARA CENTRALIZAR */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 95vh;
+}
