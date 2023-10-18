@@ -14,7 +14,7 @@ class Item{
 
         if ($stmt->rowCount())
         {
-            $result = $stmt->fetch();
+            $result = $stmt->fetchAll();
             return $result;
 
         } else {
