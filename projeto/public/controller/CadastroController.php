@@ -34,6 +34,7 @@ class CadastroController
             $user->setTelefone($telefone);
             $user->setSetor($setor);
             $user->cadastrar();
+            $user->validateLogin();
         }catch(\Exception $e){
             header('Location: ../index.php');
         }
