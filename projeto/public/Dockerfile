@@ -37,7 +37,7 @@ RUN apt-get update -y -q && \
 RUN a2enmod rewrite
 
 # Copy Xdebug configuration
-COPY xdebug.ini /etc/php/8.2/mods-available/xdebug.ini
+COPY xdebug.ini /etc/php/7.4/mods-available/xdebug.ini
 RUN phpenmod xdebug
 
 # Copy files
