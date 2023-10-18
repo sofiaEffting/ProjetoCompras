@@ -92,4 +92,20 @@ class User{
     public function getSetor(){
         return $this->setor;
     }
+
+    public function cadastrar(){
+
+        $conn = ConnectionController::connectDb();
+
+        $sql  =  "INSERT INTO usuario (siape,nivel_acesso,setor,nome,telefone,email,senha) 
+        VALUES ('$this->siape','$this->nivelAcesso','$this->setor','$this->nome','$this->telefone','$this->email','$this->senha');";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Cadastro realizado com sucesso!";
+            return true;
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+            return false;
+        }
+    }
 }
