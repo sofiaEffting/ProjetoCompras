@@ -13,7 +13,7 @@ class LoginController
 
         $params['error'] = $_SESSION['msg_error'] ?? null;
 
-        //return $template->render($params);
+        return $template->render($params);
     }
 
     public function check(){
@@ -28,7 +28,7 @@ class LoginController
             $user->setSenha($senha);
             $user->validateLogin();
 
-            header('Location: http://localhost:8001/main');
+            header('Location: http://localhost:8001/main/index');
 
         } catch(\Exception $e) {
 
