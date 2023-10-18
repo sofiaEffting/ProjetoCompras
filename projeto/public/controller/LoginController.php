@@ -34,7 +34,7 @@ class LoginController
 
             $_SESSION['msg_error'] = array('msg' => $e->getMessage(), 'count' => 0);
 
-            header('Location: http://localhost:8001/');
+            header('Location: ../');
             
         }
     }

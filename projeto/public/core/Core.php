@@ -57,7 +57,7 @@ class Core
                 $this->method = 'index';
             } 
         } else {
-            $pg_permission = ['LoginController'];
+            $pg_permission = ['LoginController','CadastroController'];
 
             if (!isset($this->controller) || !in_array( $this->controller , $pg_permission )){
                 $this->controller = 'LoginController';
