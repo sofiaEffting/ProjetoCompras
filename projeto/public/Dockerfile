@@ -36,10 +36,6 @@ RUN apt-get update -y -q && \
 # Apache rewrite
 RUN a2enmod rewrite
 
-# Copy Xdebug configuration
-COPY xdebug.ini /etc/php/7.4/mods-available/xdebug.ini
-RUN phpenmod xdebug
-
 # Copy files
 COPY apache-conf /etc/apache2/apache2.conf
  

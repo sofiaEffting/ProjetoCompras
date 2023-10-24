@@ -100,12 +100,11 @@ class User{
         $sql  =  "INSERT INTO usuario (siape,nivel_acesso,setor,nome,telefone,email,senha) 
         VALUES ('$this->siape','$this->nivelAcesso','$this->setor','$this->nome','$this->telefone','$this->email','$this->senha');";
 
-        if ($conn->query($sql) === TRUE) {
-            echo "Cadastro realizado com sucesso!";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute()){
             return true;
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-            return false;
+        } else{
+            echo "Ocorreu um erro durante o cadastro";
         }
     }
 }
