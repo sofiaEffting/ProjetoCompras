@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cadastro_serv.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <title>SCA - Sistema de Compras Acadêmicas</title>
+    <link rel="shortcut icon" href="img/logoifc.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="titulo">        
+            <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
+            <span class="mobile">SCA - IFC Blumenau</span>
+            <a href="../main/logout">SAIR</a>
+        </div>
+    </header>
+    <main>
+        <div class="center">
+            <div>
+                <h2>DADOS CADASTRAIS</h2>
+            </div>
+            <br>
+            <form action="./cadastro/check" method="post">
+                <div class="campos">
+                    <input type="text" name="siape" id="username" class="form-control" placeholder="Matrícula SIAPE" required autofocus>
+                    <br>
+                    <input type="text" name="nome" id="name" class="form-control" placeholder="Nome Completo" required>
+                    <br>
+                    <input type="text" name="nomesocial" id="nomesocial" class="form-control" placeholder="Nome Social">
+                    <br>
+                    <input type="text" name="setor" id="uniserver" class="form-control" placeholder="Unidade de Exercício (Setor)" required>
+                    <br>
+                    <input type="text" name="email" id="email" class="form-control" placeholder="E-mail" required>
+                    <br>
+                    <input type="text" name="email2" id="email" class="form-control" placeholder="Repetir E-mail" required>
+                    <br>
+                    <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone" required>
+                    <br>
+                    <input type="password" name="senha" id="senha" class="form-control" minlength="8" placeholder="Senha" required>
+                    <br>
+                    <input type="password" name="senha2" id="senha" class="form-control" minlength="8" placeholder="Repetir Senha" required>
+                </div>
+                <br>
+                <div class="btn-form">
+                    <input type="submit" id="link" class="btn-pad btn-pad1" value="Cadastrar">
+                    <a id="link" class="btn-pad btn-pad1" href="index.php">Voltar</a>
+                </div>
+
+            </form>
+        </div>
+    </main>
+</body>
+</html>
