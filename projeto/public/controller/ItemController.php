@@ -19,11 +19,22 @@ class ItemController{
         return $template->render($params);
     }
 
-    public function cadastrar()
+    
+    public function cadastrarItem()
     {
+        try {
+            Item::cadastrarItem($_POST);
+            echo '<script>alert("Item inserido com sucesso SLA!");</script>';
+            //manda o usuario para a pagia onde consta todos os itens
+            header("Location: ../main/index");
 
+        } catch (\Exception $e) {
+            echo '<script>alert("' . $e->getMessage() . '");</script>';
+            //volta para o formulario para preencher todos os campos
+            header("Location: ../main/index");
+
+        }
     }
-
     public function modificar()
     {
 
