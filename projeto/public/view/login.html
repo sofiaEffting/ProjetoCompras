@@ -14,23 +14,20 @@
             <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
         </div>
     </header>
-    <div class="div1">
-        <div class="container">
-            <h3 id="cdt">Entrar no Sistema</h3><br>
+    <div class="center">
+        <div class="form-login">
+            <h3>Entrar no Sistema</h3><br>
             <form action="localhost:8001/login/check" method="post">
-                <div class="form-group">
-                    <input type="text" name="siape" id="username" class="form-control" placeholder="Número SIAPE" required>
-                </div><br>
-                <div class="form-group">
-                    <input type="password" name="senha" class="form-control" placeholder="Senha" required>
-                    <br>
-                    <input type="submit" value="Entrar" class="btn-log">
-                </div>
+                <input type="text" name="siape" id="username" class="campos" placeholder="Número SIAPE" required>
+                <br>
+                <input type="password" name="senha" class="campos" placeholder="Senha" required>
+                <br>
+                <input type="submit" value="Entrar" class="btn-submit">
             </form>
 
             {% if error != '' %}
-                <span style="color: red; display: flex; justify-content: center; line-height: 18px; margin-top: 10px">
-                    <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" aria-hidden="true"></i>Tentativa inválida
+                <span>
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Tentativa inválida
                 </span>
             {% endif %}
         </div>

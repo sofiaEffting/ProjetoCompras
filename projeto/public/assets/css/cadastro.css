@@ -1,0 +1,148 @@
+html {
+    font-size: 16px;
+    --azul: #000080
+}
+
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+/* DEIXAR LINKS SEM AZUL */
+a {
+    text-decoration: none;
+    color: black;
+}
+/* Div do titulo do header (Sistema de compras...)*/
+.titulo {
+    display: flex;
+    background-color: var(--azul);
+    padding: 0 1.5vw;
+    height: 5vh; 
+    justify-content: space-between; 
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* título em si */
+.sca {
+    font-size: 1.2rem;
+    margin: 0;
+    color: white;
+    flex-wrap: wrap;
+}
+
+.titulo a {
+    color: white;
+    text-decoration: none;
+}
+.titulo a:hover {
+    text-decoration: underline;
+}
+
+/* DIV PARA CENTRALIZAR */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+/* titulo form login */
+h3 {
+    color: var(--azul);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+/* ALTERAÇÃO DO TITULO DEPENDENDO DA VIEWPORT*/
+.mobile {
+    display: none;
+    margin: 0;
+    font-size: 1.2rem;
+    color: white;
+    font-weight: bold;
+}
+
+/* div do form e titulo  */
+.div-form {
+    border: 2px solid var(--azul);
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    align-items: center;
+    justify-content: center;
+    margin: 5rem;   
+}
+
+/* botão submit do form */
+.btn-submit {
+    background-color: var(--azul);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 20vw;
+    margin-top: 1rem;
+    border-radius: 5px;
+    margin: 1rem;
+}
+.btn-submit a {
+    color: white;
+}
+
+/* warning span */
+span {
+    color: red; 
+    display: flex; 
+    justify-content: center; 
+    line-height: 1.12rem; 
+    margin-top: 0.62rem
+}
+span i {
+    padding-right: 5px;
+}
+/* estilização dos campos do formulário */
+.campos {
+    border: 0;
+    border-bottom: 1px solid gray;
+    font-size: 1rem;
+    width: 40rem;
+    margin-top: 1rem;
+    padding: 0.5rem 0;
+}
+
+.bnts-form {
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+}
+
+@media (max-width: 700px) {
+    .titulo {
+        height: auto;
+    }
+    .titulo h1 {
+        display: none;
+    }
+    .mobile {
+        display: flex;
+    }
+    .campos {
+        width: 80vw;
+    }
+    .div-form {
+        border: none;
+    }
+    .btn-submit {
+        width: 30vw;
+    }
+}
