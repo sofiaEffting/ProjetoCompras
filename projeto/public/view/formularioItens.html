@@ -1,41 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/cadastro.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="img/logoifc.png" type="image/x-icon">
+    <title>SCA - Sistema de Compras Acadêmicas</title>
 </head>
-
 <body>
-    <h2>inserir </h2>
-    <form action="../item/cadastrarItem" method="post">
-        <label for="sipac">SIPAC:</label>
-        <input type="text" name="sipac" id="sipac"><br>
-
-        <label for="prod_categoria">Produto Categoria:</label>
-        <input type="text" name="prod_categoria" id="prod_categoria"><br>
-
-        <label for="catmat_catser">Catmat Catser:</label>
-        <input type="text" name="catmat_catser" id="catmat_catser"><br>
-
-        <label for="natureza_despesa">Natureza de Despesa:</label>
-        <input type="text" name="natureza_despesa" id="natureza_despesa"><br>
-
-        <label for="descricao">Descrição:</label>
-        <input type="text" name="descricao" id="descricao"><br>
-
-        <label for="item_pe">Item PE:</label>
-        <input type="text" name="item_pe" id="item_pe"><br>
-
-        <label for="unidade_medida">Unidade de Medida:</label>
-        <input type="text" name="unidade_medida" id="unidade_medida"><br>
-
-        <input type="submit" value="Enviar">
-    </form>
-    <hr>
-
-
+    <header>
+        <div class="titulo">        
+            <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
+            <span class="mobile">SCA - IFC Blumenau</span>
+            <a href="../main/logout">SAIR</a>
+        </div>
+    </header>
+    <main>
+        <div class="center">
+            <div class="div-form">
+                <h3>CADASTRAR NOVO PRODUTO</h3>
+                <form action="../item/cadastrarItem" method="post">
+                    <input type="text" class="campos" name="sipac" id="sipac" placeholder="SIPAC" required><br>
+                    <input type="text" class="campos" name="prod_categoria" id="prod_categoria" placeholder="Categoria do produto" required><br>
+                    <input type="text" class="campos" name="catmat_catser" id="catmat_catser" placeholder="Catmar Catser" required><br>
+                    <input type="text" class="campos" name="natureza_despesa" id="natureza_despesa" placeholder="Natureza da despesa" required><br>
+                    <input type="text" class="campos" name="descricao" id="descricao" placeholder="Descrição" required><br>
+                    <input type="text" class="campos" name="item_pe" id="item_pe" placeholder="Item PE" required><br>
+                    <input type="text" class="campos" name="unidade_medida" id="unidade_medida" placeholder="Unidade de medida" required><br><br>
+                    <div class="bnts-form">
+                        <button  class="btn-submit"><a id="link" href="index.php">Voltar</a></button>
+                        <input type="submit" class="btn-submit" value="Enviar">
+                    </div>
+                </form>
+            </div>
+        </div>    
+    </main>
 </body>
 
 </html>
