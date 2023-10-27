@@ -13,6 +13,7 @@ body {
     background-color: white;
     min-height: 100vh;
     font-family: Arial, sans-serif;
+    overflow-x: hidden;
 }
 
 /* DEIXAR LINKS SEM AZUL */
@@ -98,7 +99,16 @@ h3 {
 .btn-submit a {
     color: white;
 }
-
+.only {
+    width: 40rem;
+}
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+}
 /* warning span */
 span {
     color: red; 
@@ -121,10 +131,17 @@ span i {
 }
 
 .bnts-form {
-    justify-content: space-around;
+    justify-content: space-around;    
     align-items: center;
     display: flex;
-}
+    width: 40rem;
+    margin-top: 1rem;
+}   
+
+textarea:focus, input:focus, select:focus {
+    box-shadow: 0 1px var(--azul);
+    outline: 0;
+} 
 
 @media (max-width: 700px) {
     .titulo {
@@ -136,13 +153,23 @@ span i {
     .mobile {
         display: flex;
     }
-    .campos {
+    .btn-submit {
+        width: 30vw;
+    }
+    .campos, .only, .bnts-form{
         width: 80vw;
     }
     .div-form {
         border: none;
     }
+}
+@media (max-width: 500px) {
+    .bnts-form {
+        flex-direction: column; 
+        margin-top: 1.5rem;
+    }
     .btn-submit {
-        width: 30vw;
+        width: 80vw;
+        margin-top: 0;
     }
 }
