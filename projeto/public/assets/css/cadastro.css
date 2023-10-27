@@ -137,7 +137,6 @@ span i {
     width: 40rem;
     margin-top: 1rem;
 }   
-
 textarea:focus, input:focus, select:focus {
     box-shadow: 0 1px var(--azul);
     outline: 0;
