@@ -29,13 +29,12 @@
             </div>
             <div class="botoes-menu">
                 <a class="btn-menu" href="../item/index">ITENS</a><br>
+                {% if user['nivel_acesso'] == 1 %}
                 <a class="btn-menu" href="../cadastro/index">CRIAR CONTA DE ADMINISTRADOR</a><br>
+                {% endif %}
                 <a class="btn-menu" href="attcadastro.html">ATUALIZAR/EXCLUIR CONTA</a><br>
             </div>
         </div>
     </main>
-    {% for item in user %}
-        {{item}}
-    {% endfor %}
 </body>
 </html>

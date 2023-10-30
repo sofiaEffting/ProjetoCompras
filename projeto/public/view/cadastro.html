@@ -14,47 +14,61 @@
     <header>
         <h1 id="sca" style="color:white">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
     </header>
+    {% if user['nivel_acesso'] == 1 %}
+
+    <!-- Estilizar essa mensagem -->
+    {% if msg %}
+        <div>
+            {{msg}}
+        </div>
+    {% endif %}
+
     <div class="div1mais">
         <div class="janela-acc">
             <p id="txy">DADOS CADASTRAIS</p>
         </div><br>
         <div class="div1form">
             <div class="container">
-                <form action="localhost:8001/cadastro/check" method="post">
+                <form action="../cadastro/check" method="post">
                     <div class="form-group">
-                        <input type="text" name="siape" id="username" class="form-control" placeholder="Matrícula SIAPE" required>
+                        <input type="text" name="siape" id="siape" class="form-control" placeholder="Matrícula SIAPE*" required autocomplete="off" maxlength="10">
                     </div><br>
                     <div class="form-group">
-                        <input type="text" name="nome" id="name" class="form-control" placeholder="Nome Completo" required>
+                        <input type="text" name="nome" id="name" class="form-control" placeholder="Nome Completo*" required autocomplete="off" maxlength="150">
                     </div><br>
                     <div class="form-group">
-                        <input type="text" name="nomesocial" id="nomesocial" class="form-control" placeholder="Nome Social">
+                        <input type="text" name="nome_social" id="nome_social" class="form-control" placeholder="Nome Social" autocomplete="off" maxlength="150">
                     </div><br>
                     <div class="form-group">
-                        <input type="text" name="setor" id="uniserver" class="form-control" placeholder="Unidade de Exercício (Setor)" required>
+                        <input type="text" name="nome_substituto" id="nome_substituto" class="form-control" placeholder="Nome do substituto" autocomplete="off" maxlength="150">
                     </div><br>
                     <div class="form-group">
-                        <input type="text" name="email" id="email" class="form-control" placeholder="E-mail" required>
+                        <input type="text" name="setor" id="setor" class="form-control" placeholder="Unidade de Exercício (Setor)*" required autocomplete="off" maxlength="255">
                     </div><br>
                     <div class="form-group">
-                        <input type="text" name="email2" id="email" class="form-control" placeholder="Repetir E-mail" required>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="E-mail*" required autocomplete="off" maxlength="255">
                     </div><br>
                     <div class="form-group">
-                        <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone" required>
+                        <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone*" required autocomplete="off">
                     </div><br>
                     <div class="form-group">
-                        <input type="password" name="senha" id="senha" class="form-control" minlength="8" placeholder="Senha" required>
+                        <input type="password" name="senha" id="senha" class="form-control" minlength="8" placeholder="Senha*" required autocomplete="off" maxlength="32">
                     </div><br>
-                    <div class="form-group">
-                        <input type="password" name="senha2" id="senha" class="form-control" minlength="8" placeholder="Repetir Senha" required>
-                    </div><br><br>
                 
-            <div class="centre">
-                <input type="submit" id="link" class="btn-pad btn-pad1" value="Cadastrar">
-                <a id="link" class="btn-pad btn-pad1" href="index.php">Voltar</a>
+                    <div class="centre">
+                        <input type="submit" id="link" class="btn-pad btn-pad1" value="Cadastrar">
+                        <a id="link" class="btn-pad btn-pad1" href="../main/index">Voltar</a>
+                    </form>
+                </div>
             </div>
-            </form>
         </div>
-    </div>
+    {% endif %}
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script>
+    $('#siape').mask('9999999999');
+    $('#telefone').mask('(00) 00000-0000');
+    
+</script>
 </html>

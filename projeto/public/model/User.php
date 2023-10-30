@@ -41,6 +41,35 @@ class User{
 
     }
 
+    public static function cadastrar($aDados){
+
+        $conn = ConnectionController::connectDb();
+
+        $aDados['nome_substituto'] = $aDados['nome_substituto'] ?? null;
+        $aDados['nome_social']     = $aDados['nome_social'] ?? null;
+
+        $sql  =  "INSERT INTO usuario (siape, nivel_acesso, setor, nome, telefone, nome_substituto, email, senha, nome_social) 
+        VALUES (:siape, :nivel_acesso, :setor, :nome, :telefone, :nome_substituto, :email, :senha, :nome_social);";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':siape', $aDados['siape']);
+        $stmt->bindValue(':nivel_acesso', $aDados['nivel_acesso']);
+        $stmt->bindValue(':setor', $aDados['setor']);
+        $stmt->bindValue(':nome', $aDados['nome']);
+        $stmt->bindValue(':telefone', $aDados['telefone']);
+        $stmt->bindValue(':nome_substituto', $aDados['nome_substituto']);
+        $stmt->bindValue(':email', $aDados['email']);
+        $stmt->bindValue(':senha', $aDados['senha']);
+        $stmt->bindValue(':nome_social', $aDados['nome_social']);
+        
+        if($stmt->execute()){
+            return true;
+        }else{
+            throw new Exception("Houve um erro ao realizar o cadastro!");
+        }
+
+    }
+    
     public function setSiape($siape){
         $this->siape = $siape;
     }
@@ -93,18 +122,4 @@ class User{
         return $this->setor;
     }
 
-    public function cadastrar(){
-
-        $conn = ConnectionController::connectDb();
-
-        $sql  =  "INSERT INTO usuario (siape,nivel_acesso,setor,nome,telefone,email,senha) 
-        VALUES ('$this->siape','$this->nivelAcesso','$this->setor','$this->nome','$this->telefone','$this->email','$this->senha');";
-
-        $stmt = $conn->prepare($sql);
-        if($stmt->execute()){
-            return true;
-        } else{
-            echo "Ocorreu um erro durante o cadastro";
-        }
-    }
 }

@@ -11,33 +11,38 @@ class CadastroController
         ]);
         $template = $twig->load('cadastro.html');
 
-        return $template->render();
+        return $template->render($_SESSION);
     }
 
     public function check(){
-        $setor = $_POST['setor'];
-        $nome = $_POST['nome'];
-        $siape = $_POST['siape'];
-        $telefone = $_POST['telefone'];
-        $email = $_POST['email'];
-        $senha = md5($_POST['senha']);
-        $nivelDeAcesso = 2;
-        $nomesocial = $_POST['nomesocial']; 
+
+        unset($_SESSION['msg']);
+
+        $_POST['telefone']      = str_replace(['(', ')', '-'] , '' , $_POST['telefone']);
+        $_POST['senha']         = md5($_POST['senha']);
+        $_POST['nivel_acesso'] = 1;
+
+        if($_POST['nome_social'] == '')
+            unset($_POST['nome_social']);
+        if($_POST['nome_substituto'] == '')
+            unset($_POST['nome_substituto']);
+
 
         try{
-            $user = new User;
-            $user->setEmail($email);
-            $user->setnome($nome);
-            $user->setNivelAcesso($nivelDeAcesso);
-            $user->setSenha($senha);
-            $user->setSiape($siape);
-            $user->setTelefone($telefone);
-            $user->setSetor($setor);
-            $user->cadastrar();
+
+            $cadastroRealizado = User::cadastrar($_POST);
+
+
+            echo 'teste';
+            $_SESSION['msg'] = 'Cadastro realizado com sucesso!';
             
-            $user->validateLogin();
-        }catch(\Exception $e){
-            header('Location: ../index.php');
+
+        } catch (\Exception $e) {
+
+            $_SESSION['msg'] = 'Houve um erro ao realizar o cadastro!' . $e->getMessage();
+
         }
+
+        header('Location: ../cadastro/index');
     }
 }
