@@ -30,8 +30,6 @@ class Item{
 
     }
 
-
-
     public static function cadastrarItem($dadosPost)
     {
         if (
@@ -44,7 +42,9 @@ class Item{
 
             return false;
         }
+
         $conn = ConnectionController::connectDb();
+    
         $sql = "INSERT INTO produto (sipac, prod_categoria, catmat_catser, natureza_despesa, descricao, item_pe, unidade_medida) 
         VALUES (:sipac, :prod_categoria, :catmat_catser, :natureza_despesa, :descricao, :item_pe, :unidade_medida)";
         $sql = $conn->prepare($sql);
