@@ -1,6 +1,7 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 //Classe do pedido INDIVIDUAL
 class PedidoController{
@@ -20,17 +21,25 @@ class PedidoController{
     {
         echo 'gerando pedido...';
 
-        $spreadsheet = IOFactory::load('../assets/pedidoIndivTemplate.ods');
+        echo $_SERVER['DOCUMENT_ROOT'];
 
-        // Obtenha a planilha ativa (geralmente é a primeira)
-        $sheet = $spreadsheet->getActiveSheet();
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+        $activeWorksheet->setCellValue('A1', 'Hello World !');
 
-        // Faça alterações na planilha
-        $sheet->setCellValue('B8', 'Teste');
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('hello world.xlsx');
 
-        // Salve as alterações de volta para o arquivo Excel
-        $writer = IOFactory::createWriter($spreadsheet, 'xlsx');
-        $writer->save('exemplo.xlsx');
+
+        // // Obtenha a planilha ativa (geralmente é a primeira)
+        // $sheet = $spreadsheet->getActiveSheet();
+
+        // // Faça alterações na planilha
+        // $sheet->setCellValue('B8', 'Teste');
+
+        // // Salve as alterações de volta para o arquivo Excel
+        // $writer = IOFactory::createWriter($spreadsheet, 'xlsx');
+        // $writer->save('exemplo.xlsx');
 
     }
 }
