@@ -37,33 +37,56 @@ class CadastroController
         header('Location: ../cadastro/index');
     }
 
-    public function atualizarDados1414()
+    public function viewAlterar()
     {
         $loader = new Twig\Loader\FilesystemLoader('view');
         $twig   = new Twig\Environment($loader, [
             'auto_reload' => true
         ]);
+
         $template = $twig->load('atualizarCadastroUsuario.html');
+
         return $template->render($_SESSION);
     }        
 
 
-
-    
-    public function atualizarDados()
-    {
+    public function alterar(){
         unset($_SESSION['msg']);
-    
+
+        $_POST['telefone']      = str_replace(['(', ')', '-'], '', $_POST['telefone']);
+        $_POST['senha']         = md5($_POST['senha']);
+        $_POST['nivel_acesso'] = 1;
+
+        if ($_POST['nome_social'] == '')
+            unset($_POST['nome_social']);
+        if ($_POST['nome_substituto'] == '')
+            unset($_POST['nome_substituto']);
         try {
-            $user = new User(); // Crie uma instância da classe User
-            $user->atualizadDados($_POST); // Chame o método na instância
-            $_SESSION['msg'] = 'Dados atualizados com sucesso!';
+            $atualizacaoRealizado = User::atualizar($_POST);
+            echo 'teste';
+            $_SESSION['msg'] = 'Alteração realizada com sucesso!';
         } catch (\Exception $e) {
-            $_SESSION['msg'] = 'Houve um erro ao atualizar os dados do usuário: ' . $e->getMessage();
+            $_SESSION['msg'] = 'Houve um erro ao realizar as alterações!' . $e->getMessage();
         }
-        header("Location: ../item/index");
+        header('Location: ../cadastro/viewAlterar');
+
     }
-    
+ 
+    public function deletarConta($siape){
+        unset($_SESSION['msg']);
+        
+        try{
+            $deletaUsuario = User::deletarConta($siape);
+
+            unset($_SESSION);
+            session_destroy();
+            header("location:../login");
+        }catch(\Exception $e){
+        }catch(\Exception $e) {
+            $_SESSION['msg'] = 'Houve um erro ao deletar!' . $e->getMessage();
+        }
+        
+    }
 
 
 }
