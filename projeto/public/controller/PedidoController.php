@@ -1,12 +1,16 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 //Classe do pedido INDIVIDUAL
 class PedidoController{
 
     public function index()
     {
+
+        
         $loader = new Twig\Loader\FilesystemLoader('view');
         $twig   = new Twig\Environment($loader,[
             'auto_reload' => true
@@ -20,17 +24,17 @@ class PedidoController{
     {
         echo 'gerando pedido...';
 
-        $spreadsheet = IOFactory::load('../assets/pedidoIndivTemplate.ods');
+        ini_set('max_execution_time', 300);
+        ini_set('memory_limit', '1G');
 
-        // Obtenha a planilha ativa (geralmente é a primeira)
-        $sheet = $spreadsheet->getActiveSheet();
+        $spreadsheet = IOFactory::load('teste.xlsx');
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->getCell('G8')->setValue('2');
+        $worksheet->getCell('G9')->setValue('abacate');
+        $worksheet->getCell('G10')->setValue('3');
 
-        // Faça alterações na planilha
-        $sheet->setCellValue('B8', 'Teste');
-
-        // Salve as alterações de volta para o arquivo Excel
-        $writer = IOFactory::createWriter($spreadsheet, 'xlsx');
-        $writer->save('exemplo.xlsx');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+        $writer->save('write.xlsx');
 
     }
 }
