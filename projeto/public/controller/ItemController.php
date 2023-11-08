@@ -4,7 +4,6 @@ class ItemController{
     
     public function index()
     {
-        
         $loader = new Twig\Loader\FilesystemLoader('view');
         $twig   = new Twig\Environment($loader,[
             'auto_reload' => true,
@@ -20,24 +19,17 @@ class ItemController{
         return $template->render($params);
     }
 
-    
+
     public function cadastrar()
     {
-
         unset($_SESSION['msg']);
 
         try {
-
             Item::cadastrarItem($_POST);
-
             $_SESSION['msg'] = 'Cadastro realizado com sucesso!';
-
         } catch (\Exception $e) {
-            
             $_SESSION['msg'] = 'Houve um erro ao cadastrar! ' . $e->getMessage();
-
         }
-
         header("Location: ../item/index");
     }
     public function modificar()

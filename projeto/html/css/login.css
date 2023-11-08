@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-size: 16px;
+    --azul: #000080;
+}
+body {
+    background-color: white;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+/* titulo form login */
+h3 {
+    color: var(--azul);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+/* DIV PARA CENTRALIZAR conteudo */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 95vh;
+    flex-direction: column;
+}
+/* form login */
+.form-login {
+    border: 2px solid var(--azul);
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+/* Div do titulo do header (Sistema de compras...)*/
+.titulo {
+    display: flex;
+    background-color: var(--azul);
+    padding: 0 1.5vw;
+    height: 5vh; 
+    justify-content: space-between; 
+    align-items: center;
+    color: white;
+    flex-wrap: wrap;
+}
+
+/* título do header */
+.sca {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.btn-login {
+    background-color: var(--azul);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 25vw;
+    margin-top: 1rem;
+    border-radius: 5px;
+}
+
+/* warning span */
+span {
+    color: red; 
+    display: flex; 
+    justify-content: center; 
+    line-height: 1.12rem; 
+    margin-top: 0.62rem
+}
+span i {
+    padding-right: 5px;
+}
+
+.campos {
+    border: 0;
+    border-bottom: 1px solid gray;
+    font-size: 1rem;
+    width: 25vw;
+    margin-top: 1rem;
+    padding: 0.5rem 0;
+}

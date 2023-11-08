@@ -67,8 +67,52 @@ class User{
         }else{
             throw new Exception("Houve um erro ao realizar o cadastro!");
         }
+    }  
+
+
+    public static function atualizar($dadosAtualizados){
+        $conn = ConnectionController::connectDb();
+
+        $dadosAtualizados['nome_substituto'] = $dadosAtualizados['nome_substituto'] ?? null;
+        $dadosAtualizados['nome_social']     = $dadosAtualizados['nome_social'] ?? null;
+
+        $sql  =  "UPDATE usuario SET  setor=:setor, nome=:nome, telefone=:telefone, nome_substituto=:nome_substituto, email=:email, senha=:senha, nome_social=:nome_social  WHERE siape = :siape";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':siape', $dadosAtualizados['siape']);
+        $stmt->bindValue(':setor', $dadosAtualizados['setor']);
+        $stmt->bindValue(':nome', $dadosAtualizados['nome']);
+        $stmt->bindValue(':telefone', $dadosAtualizados['telefone']);
+        $stmt->bindValue(':nome_substituto', $dadosAtualizados['nome_substituto']);
+        $stmt->bindValue(':email', $dadosAtualizados['email']);
+        $stmt->bindValue(':senha', $dadosAtualizados['senha']);
+        $stmt->bindValue(':nome_social', $dadosAtualizados['nome_social']);
+
+        if($stmt->execute()){
+            $_SESSION['user']['setor'] = $dadosAtualizados['setor'];
+            $_SESSION['user']['nome'] = $dadosAtualizados['nome'];
+            $_SESSION['user']['telefone'] = $dadosAtualizados['telefone'];
+            $_SESSION['user']['nome_substituto'] = $dadosAtualizados['nome_substituto'];
+            $_SESSION['user']['email'] = $dadosAtualizados['email'];
+            $_SESSION['user']['senha'] = $dadosAtualizados['senha'];
+            $_SESSION['user']['nome_social'] = $dadosAtualizados['nome_social'];
+            return true;
+        }else{
+            throw new Exception("Houve um erro ao realizar o Alteração!");
+        }
+    }
+
+    public static function deletarConta($siape){
+        $conn = ConnectionController::connectDb();
+        $sql  =  "DELETE FROM usuario WHERE siape = :siape";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':siape', $siape);
+        if($stmt->execute()){
+            return true;
+        }
 
     }
+    
     
     public function setSiape($siape){
         $this->siape = $siape;
