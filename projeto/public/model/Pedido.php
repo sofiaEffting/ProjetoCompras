@@ -22,6 +22,56 @@ class Pedido{
     private $almoxerifado;
     private $ciencia_direcao;
     private $autorizacao;
+    private $local_arq;
+
+    public function cadastrarPedido($aDados){
+
+        $conn = ConnectionController::connectDb();
+    
+        $sql  =  "INSERT INTO pedido_compra_individual (siape_requisitante, valor_estimado_unidade, qtde, justificativa_necessidade, 
+        justificativa_qtde, prioridade, data_compra, vinculacao, almoxarifado) 
+        VALUES (:siape_requisitante, :valor_estimado, :qtde, :justificativa, :justificativa_qtde, :prioridade, :data_compra,
+        :vinculacao, :almoxerifado );";
+    
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':siape_requisitante', $aDados['siape_requisitante']);
+        $stmt->bindValue(':valor_estiado', $aDados['valor_estimado']);
+        $stmt->bindValue(':qtde', $aDados['quantidade']);
+        $stmt->bindValue(':justificativa', $aDados['justificativa']);
+        $stmt->bindValue(':justificativa_qtde', $aDados['justificativa_qtde']);
+        $stmt->bindValue(':prioridade', $aDados['prioridade']);
+        $stmt->bindValue(':data_compra', $aDados['datacompra']);
+        $stmt->bindValue(':vinculacao', $aDados['vinculacao']);
+        $stmt->bindValue(':almoxerifado',$aDados['almoxerifado']);
+        
+        if($stmt->execute()){
+            $pedido_id = $stmt->insert_id; //pegando o id do pedido
+            $produtos = $aDados['produtos']; //separando um array somente com ids de produtos
+            $qtde = count($produtos);
+
+            for ($i = 0; $i < $qtde; $i++){
+
+                $sql2 = "INSERT INTO pedido_to_pedido_compra_ind (id_pci, id_produto) 
+                VALUES ('$pedido_id','$produtos[$i]')";
+                
+                $stmt2 = $conn->prepare($sql2);
+                $stmt2->execute();
+            }
+
+            return true;
+
+        }else{
+            throw new Exception("Houve um erro ao realizar o cadastro!");
+        }    
+    }
+
+    public function setLocalDoArquivo($local_arq){
+        $this->local_arq = $local_arq;
+    }
+
+    public function getLocalDoArquivo (){
+        return $this->local_arq;
+    }
 
     public function setAno($ano){
         $this->ano = $ano;
