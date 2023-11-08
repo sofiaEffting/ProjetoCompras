@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="div1mais">
+        <div class="janela-acc">
+            <p id="txy">ATUALIZAR DADOS CADASTRAIS</p>
+        </div><br>
+        <div class="div1form">
+            <div class="container">
+                <form action="../cadastro/atualizarDados" method="post">
+                    <div class="form-group">
+                        <input type="text" name="siape" id="siape" class="form-control" placeholder="Matrícula SIAPE*" required autocomplete="off" maxlength="10">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" name="nome" id="name" class="form-control" placeholder="Nome Completo*" required autocomplete="off" maxlength="150">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" name="nome_social" id="nome_social" class="form-control" placeholder="Nome Social" autocomplete="off" maxlength="150">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" name="nome_substituto" id="nome_substituto" class="form-control" placeholder="Nome do substituto" autocomplete="off" maxlength="150">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" name="setor" id="setor" class="form-control" placeholder="Unidade de Exercício (Setor)*" required autocomplete="off" maxlength="255">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="E-mail*" required autocomplete="off" maxlength="255">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone*" required autocomplete="off">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="password" name="senha" id="senha" class="form-control" minlength="8" placeholder="Senha*" required autocomplete="off" maxlength="32">
+                    </div><br>
+                
+                    <div class="centre">
+                        <input type="submit" id="link" class="btn-pad btn-pad1" value="Cadastrar">
+                        <a id="link" class="btn-pad btn-pad1" href="../main/index">Voltar</a>
+                    </form>
+                </div>
+            </div>
+    </div>
+</body>
+</html>

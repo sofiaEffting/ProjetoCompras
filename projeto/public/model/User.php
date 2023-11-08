@@ -67,8 +67,42 @@ class User{
         }else{
             throw new Exception("Houve um erro ao realizar o cadastro!");
         }
-
     }
+
+    
+    public function atualizadDados($dadosPost) {
+        // Conectar ao banco de dados
+        $conn = ConnectionController::connectDb();
+    
+        
+        $dadosPost['nome_substituto'] = $dadosPost['nome_substituto'] ?? null;
+        $dadosPost['nome_social']     = $dadosPost['nome_social'] ?? null;
+
+        // Preparar a consulta SQL
+        $stmt = $conn->prepare('UPDATE usuario SET nome=:nome, email=:email, senha=:senha, telefone=:telefone WHERE id=:id');
+    
+        // Vincular os parâmetros à consulta SQL
+        $stmt->bindValue(':siape', $dadosPost['siape']);
+        $stmt->bindValue(':nivel_acesso', $dadosPost['nivel_acesso']);
+        $stmt->bindValue(':setor', $dadosPost['setor']);
+        $stmt->bindValue(':nome', $dadosPost['nome']);
+        $stmt->bindValue(':telefone', $dadosPost['telefone']);
+        $stmt->bindValue(':nome_substituto', $dadosPost['nome_substituto']);
+        $stmt->bindValue(':email', $dadosPost['email']);
+        $stmt->bindValue(':senha', $dadosPost['senha']);
+        $stmt->bindValue(':nome_social', $dadosPost['nome_social']);
+    
+        // Executar a consulta SQL
+        if ($stmt->execute()) {
+            echo " Dados atualizados com sucesso";
+            return true;
+        } else {
+            // Tratar erros de atualização
+            echo "erro ao atualizar";
+            return false;
+        }
+    }
+    
     
     public function setSiape($siape){
         $this->siape = $siape;

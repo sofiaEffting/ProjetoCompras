@@ -6,7 +6,6 @@ namespace Database;
 abstract class ConnectionController{
 
     public static $conexao;
-
     public static function connectDb()
     {
         try{
@@ -15,7 +14,6 @@ abstract class ConnectionController{
 
                 self::$conexao = new \PDO("mysql:host=dev_ifc.db4free.net;dbname=compras_ifc", 'dev_ifc', 'q1w2e3r4t5');
             }
-
             return self::$conexao;
         
         }catch(\PDOException $e){
