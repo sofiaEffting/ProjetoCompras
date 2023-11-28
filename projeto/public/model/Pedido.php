@@ -30,20 +30,25 @@ class Pedido
     // Definição de uma função chamada todosPedidosIndiviguais
     public function todosPedidosIndiviguais($siape)
     {
-        //var_dump($_SESSION['user']);
+        $ehAdm = $_SESSION['user']['nivel_acesso'] == 1;
         $conn = ConnectionController::connectDb();
-        $sql = "SELECT * FROM pedido_compra_individual WHERE siape_requisitante = :siape";
-        if ($_SESSION['user']['nivel_acesso'] == '1') {
-            $stmt = $conn->prepare($sql);
-            $stmt->bindValue(":siape", $siape, PDO::PARAM_INT);
-            $stmt->execute();
+        $sql = "SELECT * FROM pedido_compra_individual ";
+        if (!$ehAdm) {
+            $sql .= " WHERE siape_requisitante = :siape";
+        }
 
-            if ($stmt->rowCount()) {
-                $result = $stmt->fetchAll();
-                return $result;
-            } else {
-                return false;
-            }
+        $stmt = $conn->prepare($sql);
+        if(!$ehAdm){
+            $stmt->bindValue(":siape", $siape, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
+
+        if ($stmt->rowCount()) {
+            $result = $stmt->fetchAll();
+            return $result;
+        } else {
+            return false;
         }
     }
 
