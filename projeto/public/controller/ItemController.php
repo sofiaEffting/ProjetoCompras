@@ -4,7 +4,6 @@ class ItemController{
     
     public function index()
     {
-        
         $loader = new Twig\Loader\FilesystemLoader('view');
         $twig   = new Twig\Environment($loader,[
             'auto_reload' => true,
@@ -14,26 +13,24 @@ class ItemController{
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $model = new Item();
         $params['itens'] = $model->getItens();
+        $params['msg'] = $_SESSION['msg'] ?? null;
         
         $template = $twig->load('item.html');
         return $template->render($params);
     }
 
-    
-    public function cadastrarItem()
+
+    public function cadastrar()
     {
+        unset($_SESSION['msg']);
+
         try {
             Item::cadastrarItem($_POST);
-            echo '<script>alert("Item inserido com sucesso SLA!");</script>';
-            //manda o usuario para a pagia onde consta todos os itens
-            header("Location: ../main/index");
-
+            $_SESSION['msg'] = 'Cadastro realizado com sucesso!';
         } catch (\Exception $e) {
-            echo '<script>alert("' . $e->getMessage() . '");</script>';
-            //volta para o formulario para preencher todos os campos
-            header("Location: ../main/index");
-
+            $_SESSION['msg'] = 'Houve um erro ao cadastrar! ' . $e->getMessage();
         }
+        header("Location: ../item/index");
     }
     public function modificar()
     {

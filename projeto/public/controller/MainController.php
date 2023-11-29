@@ -3,6 +3,9 @@
 class MainController{
     public function index()
     {
+
+        unset($_SESSION['msg']);
+
         $loader = new Twig\Loader\FilesystemLoader('view');
         $twig   = new Twig\Environment($loader,[
             'auto_reload' => true

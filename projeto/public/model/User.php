@@ -41,6 +41,79 @@ class User{
 
     }
 
+    public static function cadastrar($aDados){
+
+        $conn = ConnectionController::connectDb();
+
+        $aDados['nome_substituto'] = $aDados['nome_substituto'] ?? null;
+        $aDados['nome_social']     = $aDados['nome_social'] ?? null;
+
+        $sql  =  "INSERT INTO usuario (siape, nivel_acesso, setor, nome, telefone, nome_substituto, email, senha, nome_social) 
+        VALUES (:siape, :nivel_acesso, :setor, :nome, :telefone, :nome_substituto, :email, :senha, :nome_social);";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':siape', $aDados['siape']);
+        $stmt->bindValue(':nivel_acesso', $aDados['nivel_acesso']);
+        $stmt->bindValue(':setor', $aDados['setor']);
+        $stmt->bindValue(':nome', $aDados['nome']);
+        $stmt->bindValue(':telefone', $aDados['telefone']);
+        $stmt->bindValue(':nome_substituto', $aDados['nome_substituto']);
+        $stmt->bindValue(':email', $aDados['email']);
+        $stmt->bindValue(':senha', $aDados['senha']);
+        $stmt->bindValue(':nome_social', $aDados['nome_social']);
+        
+        if($stmt->execute()){
+            return true;
+        }else{
+            throw new Exception("Houve um erro ao realizar o cadastro!");
+        }
+    }  
+
+
+    public static function atualizar($dadosAtualizados){
+        $conn = ConnectionController::connectDb();
+
+        $dadosAtualizados['nome_substituto'] = $dadosAtualizados['nome_substituto'] ?? null;
+        $dadosAtualizados['nome_social']     = $dadosAtualizados['nome_social'] ?? null;
+
+        $sql  =  "UPDATE usuario SET  setor=:setor, nome=:nome, telefone=:telefone, nome_substituto=:nome_substituto, email=:email, senha=:senha, nome_social=:nome_social  WHERE siape = :siape";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':siape', $dadosAtualizados['siape']);
+        $stmt->bindValue(':setor', $dadosAtualizados['setor']);
+        $stmt->bindValue(':nome', $dadosAtualizados['nome']);
+        $stmt->bindValue(':telefone', $dadosAtualizados['telefone']);
+        $stmt->bindValue(':nome_substituto', $dadosAtualizados['nome_substituto']);
+        $stmt->bindValue(':email', $dadosAtualizados['email']);
+        $stmt->bindValue(':senha', $dadosAtualizados['senha']);
+        $stmt->bindValue(':nome_social', $dadosAtualizados['nome_social']);
+
+        if($stmt->execute()){
+            $_SESSION['user']['setor'] = $dadosAtualizados['setor'];
+            $_SESSION['user']['nome'] = $dadosAtualizados['nome'];
+            $_SESSION['user']['telefone'] = $dadosAtualizados['telefone'];
+            $_SESSION['user']['nome_substituto'] = $dadosAtualizados['nome_substituto'];
+            $_SESSION['user']['email'] = $dadosAtualizados['email'];
+            $_SESSION['user']['senha'] = $dadosAtualizados['senha'];
+            $_SESSION['user']['nome_social'] = $dadosAtualizados['nome_social'];
+            return true;
+        }else{
+            throw new Exception("Houve um erro ao realizar o Alteração!");
+        }
+    }
+
+    public static function deletarConta($siape){
+        $conn = ConnectionController::connectDb();
+        $sql  =  "DELETE FROM usuario WHERE siape = :siape";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':siape', $siape);
+        if($stmt->execute()){
+            return true;
+        }
+
+    }
+    
+    
     public function setSiape($siape){
         $this->siape = $siape;
     }
@@ -93,18 +166,4 @@ class User{
         return $this->setor;
     }
 
-    public function cadastrar(){
-
-        $conn = ConnectionController::connectDb();
-
-        $sql  =  "INSERT INTO usuario (siape,nivel_acesso,setor,nome,telefone,email,senha) 
-        VALUES ('$this->siape','$this->nivelAcesso','$this->setor','$this->nome','$this->telefone','$this->email','$this->senha');";
-
-        $stmt = $conn->prepare($sql);
-        if($stmt->execute()){
-            return true;
-        } else{
-            echo "Ocorreu um erro durante o cadastro";
-        }
-    }
 }

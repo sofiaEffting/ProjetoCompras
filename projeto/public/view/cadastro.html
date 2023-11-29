@@ -16,35 +16,61 @@
             <a href="../main/logout">SAIR</a>
         </div>
     </header>
-    <main>
-        <div class="center">
-            <div class="div-form">
-                <h3>DADOS CADASTRAIS</h3>
-                <form action="localhost:8001/cadastro/check" method="post">
-                    <input type="text" name="siape" id="username" class="campos" placeholder="Matrícula SIAPE" required autofocus>
-                    <br>
-                    <input type="text" name="nome" id="name" class="campos" placeholder="Nome Completo" required>
-                    <br>
-                    <input type="text" name="nomesocial" id="nomesocial" class="campos" placeholder="Nome Social">
-                    <br>
-                    <input type="text" name="setor" id="uniserver" class="campos" placeholder="Unidade de Exercício (Setor)" required>
-                    <br>
-                    <input type="email" name="email" id="email" class="campos" placeholder="E-mail" required>
-                    <br>
-                    <input type="email" name="email2" id="email" class="campos" placeholder="Repetir E-mail" required>
-                    <br>
-                    <input type="text" name="telefone" id="telefone" class="campos" placeholder="Telefone" required>
-                    <br>
-                    <input type="password" name="senha" id="senha" class="campos" minlength="8" placeholder="Senha" required>
-                    <br>
-                    <input type="password" name="senha2" id="senha" class="campos" minlength="8" placeholder="Repetir Senha" required>
-                    <br><br>
+    {% if user['nivel_acesso'] == 1 %}
+
+    <!-- Estilizar essa mensagem -->
+    {% if msg %}
+        <div>
+            {{msg}}
+        </div>
+    {% endif %}
+
+    <div class="div1mais">
+        <div class="janela-acc">
+            <p id="txy">DADOS CADASTRAIS</p>
+        </div><br>
+        <div class="div1form">
+            <div class="container">
+                <form action="../cadastro/check" method="post">
+                    <div class="form-group">
+                        <input type="text" name="siape" id="siape" class="form-control" placeholder="Matrícula SIAPE*" required autocomplete="off" maxlength="10">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" name="nome" id="name" class="form-control" placeholder="Nome Completo*" required autocomplete="off" maxlength="150">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" name="nome_social" id="nome_social" class="form-control" placeholder="Nome Social" autocomplete="off" maxlength="150">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" name="nome_substituto" id="nome_substituto" class="form-control" placeholder="Nome do substituto" autocomplete="off" maxlength="150">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" name="setor" id="setor" class="form-control" placeholder="Unidade de Exercício (Setor)*" required autocomplete="off" maxlength="255">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="E-mail*" required autocomplete="off" maxlength="255">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone*" required autocomplete="off">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="password" name="senha" id="senha" class="form-control" minlength="8" placeholder="Senha*" required autocomplete="off" maxlength="32">
+                    </div><br>
                 
-                    <div class="bnts-form">
-                        <input type="submit" id="link" class="btn-submit only" value="Cadastrar">
-                    </div>
-                </form>
+                    <div class="centre">
+                        <input type="submit" id="link" class="btn-pad btn-pad1" value="Cadastrar">
+                        <a id="link" class="btn-pad btn-pad1" href="../main/index">Voltar</a>
+                    </form>
+                </div>
             </div>
-    </main>
+    </div>
+    {% endif %}
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script>
+    $('#siape').mask('9999999999');
+    $('#telefone').mask('(00) 00000-0000');
+    
+</script>
 </html>
