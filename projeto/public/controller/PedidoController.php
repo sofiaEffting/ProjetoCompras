@@ -46,4 +46,20 @@ class PedidoController{
 
         // $writer->save('pedido.xlsx');
     }
+
+    public function historicoPedidoIndividual($siape) {
+        $loader = new Twig\Loader\FilesystemLoader('view');
+        $twig = new Twig\Environment($loader, [
+            'auto_reload' => true,
+            'debug' => true
+        ]);
+        $twig->addExtension(new \Twig\Extension\DebugExtension());
+        $model = new Pedido();
+    
+        $params['pedidos'] = $model->todosPedidosIndiviguais($siape);
+    
+        //var_dump($params['pedidos'] );
+        $template = $twig->load('historicoPedido.html');
+        return $template->render($params);
+    }
 }
