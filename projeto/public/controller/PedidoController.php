@@ -37,4 +37,9 @@ class PedidoController{
         $writer->save('write.xlsx');
 
     }
+
+    public function check(){
+        
+
+    }
 }
