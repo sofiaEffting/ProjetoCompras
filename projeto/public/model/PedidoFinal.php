@@ -118,6 +118,7 @@ class PedidoFinal{
     }
 
     function faz_tudo($date_ini, $date_final){
+        // Função que fará tudo para facilitar a implementação do pedido final no controller.
         $idpedidos = $this->juntar_pedido($date_ini,$date_final);
         $lista_idprodutos = $this->geraListaProdutos($idpedidos);
         $lista_final = $this->geraListaFinal($lista_idprodutos);
