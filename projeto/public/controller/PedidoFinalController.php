@@ -13,7 +13,7 @@ class PedidoFinalController{
         $twig   = new Twig\Environment($loader,[
             'auto_reload' => true
         ]);
-        $template = $twig->load('pedidofinal.html');
+        $template = $twig->load('pedidoFinal.html');
 
         return $template->render();
     }
@@ -37,5 +37,7 @@ class PedidoFinalController{
             header('Location: ../');
             
         }
+
+        header('Location: ../main/index');
 }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/pedidofinal.css">
+    <link rel="shortcut icon" href="img/logoifc.png" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <title>SCA - Sistema de Compras Acadêmicas</title>
+</head>
+<body>
+    <header>
+        <div class="titulo">
+            <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
+        </div>
+    </header>
+    <form action="../PedidoFinal/criarPedido">
+        <label>Siape:</label>
+        <input type="siape" name="siape" id="siape" required>
+        <br>
+        <label>Habilitação Especial:</label>
+        <input type="text" name="habilatacaoEspecial" id="habilatacaoEspecial" required>
+        <br>
+        <label>Dotaçao:</label>
+        <input type="text" name="dotacao" id="dotacao">
+        <br>
+        <input type="submit" value="Criar Pedido">
+    </form>
+</body>
+</html>
