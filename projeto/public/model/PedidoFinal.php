@@ -8,11 +8,11 @@ class PedidoFinal{
     private $habilitacao_especial;
     private $dotacao_orcamentaria;
 
-    public function siape_requisitante($siape_requisitante){
+    public function setSiape_requisitante($siape_requisitante){
         $this->siape_requisitante = $siape_requisitante;
     }
 
-    public function getsiape_requisitante (){
+    public function getSiape_requisitante (){
         return $this->siape_requisitante;
     }
 
@@ -32,7 +32,7 @@ class PedidoFinal{
         return $this->dotacao_orcamentaria;
     }
 
-    function juntar_pedido($date_ini, $date_final){
+    private function juntar_pedido($date_ini, $date_final){
 
         $conn = ConnectionController::connectDb();
 
@@ -48,7 +48,7 @@ class PedidoFinal{
         return $idsPedidos;
     }
 
-    function geraListaProdutos($idsPedidos){
+    private function geraListaProdutos($idsPedidos){
         $conn = ConnectionController::connectDb();
 
         $produtosQuantidades = array();
@@ -74,7 +74,7 @@ class PedidoFinal{
             return $produtosQuantidades;
         }
 
-    function geraListaFinal($idsProdutosQuantidades){
+    private function geraListaFinal($idsProdutosQuantidades){
         $conn = ConnectionController::connectDb();
 
         $detalhesProdutos = array();
@@ -101,7 +101,7 @@ class PedidoFinal{
         return $detalhesProdutos;
     }
 
-    function cadastra_pedido(){
+    private function cadastra_pedido(){
         $conn = ConnectionController::connectDb();
 
         $sql = "INSERT INTO pedidofinal (siape_requisitante, habilitacao_especifica, dotacao_orcamentaria) VALUES (?, ?, ?)";
@@ -117,12 +117,12 @@ class PedidoFinal{
         return true;
     }
 
-    function faz_tudo($date_ini, $date_final){
+    public function faz_tudo($date_ini, $date_final){
         // Função que fará tudo para facilitar a implementação do pedido final no controller.
         $idpedidos = $this->juntar_pedido($date_ini,$date_final);
         $lista_idprodutos = $this->geraListaProdutos($idpedidos);
         $lista_final = $this->geraListaFinal($lista_idprodutos);
-
+        // Nesta linha sera inserida a função que gera o excel.
         $this->cadastra_pedido();
     }
 }
