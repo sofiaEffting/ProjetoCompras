@@ -29,7 +29,7 @@ class PedidoFinalController{
         $pedidoFinal->setDotacao($_POST['Dotacao']);
 
         $pedidoFinal->faz_tudo($_POST['data_ini'],$_POST['data_final']);
-
+        
         }catch(\Exception $e) {
 
             $_SESSION['msg_error'] = array('msg' => $e->getMessage(), 'count' => 0);
