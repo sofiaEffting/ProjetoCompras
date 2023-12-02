@@ -9,7 +9,9 @@ class PedidoController{
 
     public function index()
     {
+        $pedido = new Pedido();
 
+        $categorias = $pedido->getCategorias();
         
         $loader = new Twig\Loader\FilesystemLoader('view');
         $twig   = new Twig\Environment($loader,[
@@ -17,25 +19,48 @@ class PedidoController{
         ]);
         $template = $twig->load('pedido.html');
 
-        return $template->render();
+        $params['categorias'] = $categorias;
+
+        return $template->render($params);
     }
 
     public function gerarPedido()
     {
-        echo 'gerando pedido...';
+        var_dump($_POST);
 
-        ini_set('max_execution_time', 300);
-        ini_set('memory_limit', '1G');
+        
 
-        $spreadsheet = IOFactory::load('teste.xlsx');
-        $worksheet = $spreadsheet->getActiveSheet();
-        $worksheet->getCell('G8')->setValue('2');
-        $worksheet->getCell('G9')->setValue('abacate');
-        $worksheet->getCell('G10')->setValue('3');
+        // ini_set('max_execution_time', 300);
+        // ini_set('memory_limit', '1G');
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Xls');
-        $writer->save('write.xlsx');
+        // $spreadsheet = IOFactory::load('teste.xlsx');
+        // $worksheet = $spreadsheet->getActiveSheet();
+        // $worksheet->getCell('G8')->setValue('2');
+        // $worksheet->getCell('G9')->setValue('abacate');
+        // $worksheet->getCell('G10')->setValue('3');
 
+        // $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+
+        // header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // header('Content-Disposition: attachment; filename="pedido.xlsx"');
+
+        // $writer->save('pedido.xlsx');
+    }
+
+    public function historicoPedidoIndividual($siape) {
+        $loader = new Twig\Loader\FilesystemLoader('view');
+        $twig = new Twig\Environment($loader, [
+            'auto_reload' => true,
+            'debug' => true
+        ]);
+        $twig->addExtension(new \Twig\Extension\DebugExtension());
+        $model = new Pedido();
+    
+        $params['pedidos'] = $model->todosPedidosIndiviguais($siape);
+    
+        //var_dump($params['pedidos'] );
+        $template = $twig->load('historicoPedido.html');
+        return $template->render($params);
     }
 
     public function check(){

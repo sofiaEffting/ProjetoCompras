@@ -14,7 +14,7 @@
         <span class="mobile">SCA - IFC Blumenau</span>
         <a href="../main/logout">SAIR</a>
     </div>
-    <form action="../pedido/gerarPedido">
+    <form id="formulario" action="../pedido/gerarPedido" method="POST">
         <table class="table" style="margin: 2% auto; width: 80%;">
             <thead class="thead-dark">
               <tr>
@@ -23,39 +23,38 @@
                 <th scope="col">Item</th>
                 <th scope="col">SIPAC</th>
                 <th scope="col">CATMAT/CATSER</th>
+                <th scope="col">Ações</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tabela-pedido">
               <tr>
                 <th scope="row">1</th>
                 <td>
-                    <select name="" onchange="buscaItens(this)" id="categoria1">
+                    <select name="categoria1" onchange="buscaItens(this)" id="categoria1">
                         <option value="0"> --Selecione-- </option>
-                        <option value="teste">teste</option>
+                        {% for registro in categorias %}
+                          <option value="{{ registro['nome_categoria'] }}">{{ registro['nome_categoria'] }} </option>
+                        {% endfor %}
                     </select>
                 </td>
                 <td id="item1">
 
                 </td>
-                <td>@mdo</td>
-                <td>bla</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>ble</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>bli</td>
+                <td id="sipac1">
+                  ---
+                </td>
+                <td id="catmat_catser1">
+                  ---
+                </td>
+                <td id="deletar1">
+                  <a href="#" onclick="deleteRow(1)">Deletar</a>
+                </td>
               </tr>
             </tbody>
           </table>
+          <div style="width: 100%; text-align: center;">
+            <button type="button" onclick="addRow();">+</button>
+          </div>
         <input type="submit" value="Fazer pedido">
     </form>
 
@@ -64,7 +63,7 @@
             var xhr = new XMLHttpRequest();
             let param = prElemento.value;
             let linha = prElemento.id[prElemento.id.length -1];
-            console.log(linha);
+
             xhr.open("GET", "../ajax/buscaItens.php?categoria=" + param , true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
@@ -74,11 +73,14 @@
 
                     var select = document.createElement("select");
 
+                    select.setAttribute("onchange", "buscaInfoItens(this)");
+
                     resposta.forEach(element => {
                         // Cria e configura a opção
                         var option = document.createElement("option");
                         option.value = element["sipac"];
                         option.textContent = element["descricao"];
+                        option.onchange = 'buscaInfoItens(this)';
 
                         // Adiciona a opção ao select
                         select.appendChild(option);
@@ -89,6 +91,77 @@
                 }
             };
             xhr.send();
+        }
+
+        function buscaInfoItens(prElemento){
+          const xhr = new XMLHttpRequest();
+          let param = prElemento.value;
+          let pai_id = prElemento.parentNode.id;
+          let linha = pai_id[pai_id.length - 1];
+
+          xhr.open("GET", "../ajax/buscaInfoItens.php?sipac=" + param , true);
+          xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                  var resposta = JSON.parse(xhr.responseText);
+
+                  let sipac = document.getElementById("sipac" + linha);
+                  let catmat_catser = document.getElementById("catmat_catser" + linha);
+
+                  resposta.forEach(element => {
+                    sipac.innerHTML         = element["sipac"];
+                    catmat_catser.innerHTML = element["catmat_catser"];
+                  });
+
+                }
+            };
+          xhr.send();
+        }
+
+        function addRow(){
+          let tabela = document.getElementById("tabela-pedido");
+          let linhas = tabela.rows.length;
+          let novaLinha = linhas + 1;
+          
+          tabela.innerHTML+=`
+            <tr>
+              <th scope="row">`+novaLinha+`</th>
+              <td>
+                  <select name="" onchange="buscaItens(this)" id="categoria`+novaLinha+`">
+                      <option value="0"> --Selecione-- </option>
+                      <option value="teste">teste</option>
+                  </select>
+              </td>
+              <td id="item`+novaLinha+`">
+
+              </td>
+              <td id="sipac`+novaLinha+`">
+                ---
+              </td>
+              <td id="catmat_catser`+novaLinha+`">
+                ---
+              </td>
+              <td id="deletar`+novaLinha+`">
+                <a href="#" onClick="deleteRow(`+novaLinha+`)">Deletar</a>
+              </td>
+            </tr>
+          `;
+          
+          let options = Array.from( document.getElementById('categoria1').options );
+          
+          options.unshift();
+
+          let newCategoria = document.getElementById('categoria' + novaLinha);
+          
+          for (option of options){
+            newCategoria.append(option);
+          }
+
+        }
+
+        function deleteRow(num){
+          const tabela = document.getElementById('tabela-pedido');
+          const linha = tabela.querySelector("tr:nth-child("+num+")");
+          linha.parentNode.removeChild(linha);
         }
     </script>
 </body>
