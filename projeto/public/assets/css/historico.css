@@ -1,0 +1,37 @@
+html {
+    font-size: 16px;
+}
+.div-tabela {
+    max-width: 100%;
+    overflow-x: auto;
+    height: auto;
+}
+table {
+    border: 1px solid lightgrey;
+    border-collapse: collapse;
+    font-size: 1rem;
+    width: 100%;
+}
+th, td {
+    border: 1px solid lightgrey;
+    border-collapse: collapse;
+    overflow: auto;
+    min-width: 3rem;
+    word-wrap: break-word;
+}
+td {
+    line-height: 1.1rem;
+    padding: 5px;
+}
+tr:hover {
+    background-color: #ede7e6;
+}
+
+thead th {
+    background-color: #ede7e6;
+    padding: 8px;
+}
+
+.margin-top-5rem {
+    margin-top: 5rem;
+}

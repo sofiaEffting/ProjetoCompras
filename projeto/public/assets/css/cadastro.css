@@ -13,7 +13,7 @@ body {
     background-color: white;
     min-height: 100vh;
     font-family: Arial, sans-serif;
-    overflow-x: hidden;
+
 }
 
 /* DEIXAR LINKS SEM AZUL */
@@ -141,7 +141,10 @@ textarea:focus, input:focus, select:focus {
     box-shadow: 0 1px var(--azul);
     outline: 0;
 } 
-
+select {
+    background-color: white;
+    color: gray;
+}
 @media (max-width: 700px) {
     .titulo {
         height: auto;
