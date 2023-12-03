@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/cadastro.css">
     <link rel="stylesheet" href="../assets/css/historico.css">
+    <link rel="stylesheet" href="../assets/css/pedido.css">
     <link rel="shortcut icon" href="img/logoifc.png" type="image/x-icon">
     <title>SCA - Sistema de Compras Acadêmicas</title>
 </head>
@@ -30,6 +31,7 @@
                 <th scope="col">Item</th>
                 <th scope="col">SIPAC</th>
                 <th scope="col">CATMAT/CATSER</th>
+                <th scope="col">Valor Estimado / Unidade</th>
                 <th scope="col">Ações</th>
               </tr>
             </thead>
@@ -37,7 +39,7 @@
               <tr>
                 <th scope="row">1</th>
                 <td>
-                    <select name="categoria1" onchange="buscaItens(this)" id="categoria1" class="campos">
+                    <select name="" onchange="buscaItens(this)" id="categoria1" class="campos w80">
                         <option value="0"> --Selecione-- </option>
                         {% for registro in categorias %}
                           <option value="{{ registro['nome_categoria'] }}">{{ registro['nome_categoria'] }} </option>
@@ -47,24 +49,72 @@
                 <td id="item1"></td>
                 <td id="sipac1">  ---</td>
                 <td id="catmat_catser1">  ---</td>
+                <td id="valor1">
+                  <input name="valor1" type="number" class="campos w80">
+                </td>
                 <td id="deletar1">
                   <a href="#" onclick="deleteRow(1)">Deletar</a>
                 </td>
               </tr>
-            </tbody>
-          </table>
-          <div style="width: 100%; text-align: center;">
-            <button class="btn-submit" type="button" onclick="addRow();">Adicionar item</button>
-            <input type="submit" value="Fazer pedido" class="btn-submit">
-          </div>
-      </form>
-    </div>
+        </table>
+        <div class="center" style="width: auto;">
+          <button class="btn-submit"><a style="text-decoration: none;" type="button" href="../main/index">Voltar</a></button>
+          <button class="btn-submit plus-button" type="button" id="botaoAdd" onclick="addRow();"></button>
+          <input class="btn-submit" type="submit" value="Gerar planilha">
+        </div>
+        
+      </div>
+    </form>
   </main>
     
-
   <script>
-      function buscaItens(prElemento){
-          var xhr = new XMLHttpRequest();
+        function buscaItens(prElemento){
+            var xhr = new XMLHttpRequest();
+            let param = prElemento.value;
+            let linha = prElemento.id[prElemento.id.length -1];
+            let botaoAdd = document.getElementById('botaoAdd');
+            botaoAdd.disabled = true; 
+
+            xhr.open("GET", "../ajax/buscaItens.php?categoria=" + param , true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var resposta = JSON.parse(xhr.responseText);
+
+                    let item = document.getElementById("item" + linha);
+
+                    var select = document.createElement("select");
+
+                    select.setAttribute("onchange", "buscaInfoItens(this)");
+                    select.setAttribute("name", "descricao" + linha);
+
+                    let placeholder = document.createElement("option");
+                    placeholder.value = "0";
+                    placeholder.textContent = " --Selecione-- ";
+                    placeholder.onchange = "buscaInfoItens(this)";
+                    select.appendChild(placeholder);
+
+                    resposta.forEach(element => {
+                        // Cria e configura a opção
+                        var option = document.createElement("option");
+                        option.value = element["sipac"];
+                        option.textContent = element["descricao"];
+                        option.onchange = 'buscaInfoItens(this)';
+
+                        // Adiciona a opção ao select
+                        select.appendChild(option);
+                    });
+
+                    // Adiciona o select ao elemento item
+                    item.appendChild(select);
+                }
+            };
+            xhr.send();
+
+            botaoAdd.disabled = false;
+        }
+
+        function buscaInfoItens(prElemento){
+          const xhr = new XMLHttpRequest();
           let param = prElemento.value;
           let linha = prElemento.id[prElemento.id.length -1];
 
@@ -160,13 +210,56 @@
           newCategoria.append(option);
         }
 
-      }
+        function addRow(){
+          let tabela = document.getElementById("tabela-pedido");
+          let linhas = tabela.rows.length;
+          let novaLinha = linhas + 1;
 
-      function deleteRow(num){
-        const tabela = document.getElementById('tabela-pedido');
-        const linha = tabela.querySelector("tr:nth-child("+num+")");
-        linha.parentNode.removeChild(linha);
+          let novaLinhaElemento = document.createElement("tr");
+
+          novaLinhaElemento.innerHTML =
+          `
+              <th scope="row">`+novaLinha+`</th>
+              <td>
+                  <select onchange="buscaItens(this)" id="categoria`+novaLinha+`">
+                  </select>
+              </td>
+              <td id="item`+novaLinha+`">
+
+              </td>
+              <td id="sipac`+novaLinha+`">
+                ---
+              </td>
+              <td id="catmat_catser`+novaLinha+`">
+                ---
+              </td>
+              <td id="valor`+novaLinha+`">
+                <input type="number" name="valor`+novaLinha+`">
+              </td>
+              <td id="deletar`+novaLinha+`">
+                <a href="#" onClick="deleteRow(`+novaLinha+`)">Deletar</a>
+              </td>
+          `;
+          tabela.appendChild(novaLinhaElemento);
+
+          let options = Array.from(document.getElementById('categoria1').options);
+          let newCategoria = document.getElementById('categoria' + novaLinha);
+
+          for (let option of options) {
+            // Clona a opção antes de adicioná-la ao novo elemento
+            newCategoria.appendChild(option.cloneNode(true));
+          }
+
+        }
+
+        function deleteRow(num){
+          if (num != 1){
+            const tabela = document.getElementById('tabela-pedido');
+            const linha = tabela.querySelector("tr:nth-child("+num+")");
+            linha.parentNode.removeChild(linha);
+          }
+        }
       }
-  </script>
+    </script>
 </body>
 </html>

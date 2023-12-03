@@ -39,7 +39,6 @@ h3 {
     padding: 3rem;
     align-items: center;
     justify-content: center;
-    
 }
 
 /* Div do titulo do header (Sistema de compras...)*/
@@ -60,19 +59,30 @@ h3 {
     margin: 0;
 }
 /* botão submit do form */
-.btn-submit {
-    background-color: var(--azul);
+.btn-submit:hover{
+    transition: background-color 0.3s;
     color: white;
+    background-color: #000080;
+}
+.btn-submit:hover a {
+    color: white;
+}
+/* botão submit do form */
+.btn-submit {
+    background-color: white;
+    color: var(--azul);
     cursor: pointer;
     font-weight: bold;
-    border: none;
-    padding: 0.5rem;
-    font-size: 1rem;
+    border: 1px solid var(--azul);
+    padding: 0.4rem;
+    font-size: 1.2rem;
     width: 20rem;
     margin-top: 1rem;
-    border-radius: 5px;
+    border-radius: 10px;
 }
-
+.btn-submit a {
+    color: var(--azul);
+}
 /* warning span */
 span {
     color: red; 
