@@ -27,11 +27,11 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Categoria</th>
-                <th scope="col">Item</th>
+                <th scope="col" style="width: 300px;">Categoria</th>
+                <th scope="col" style="width: 300px;">Item</th>
                 <th scope="col">SIPAC</th>
                 <th scope="col">CATMAT/CATSER</th>
-                <th scope="col">Valor Estimado / Unidade</th>
+                <th scope="col" style="width: 300px;">Valor Estimado / Unidade</th>
                 <th scope="col">Ações</th>
               </tr>
             </thead>
@@ -39,7 +39,7 @@
               <tr>
                 <th scope="row">1</th>
                 <td>
-                    <select name="" onchange="buscaItens(this)" id="categoria1" class="campos w80">
+                    <select name="" onchange="buscaItens(this)" id="categoria1" class="campos w100">
                         <option value="0"> --Selecione-- </option>
                         {% for registro in categorias %}
                           <option value="{{ registro['nome_categoria'] }}">{{ registro['nome_categoria'] }} </option>
@@ -50,7 +50,7 @@
                 <td id="sipac1">  ---</td>
                 <td id="catmat_catser1">  ---</td>
                 <td id="valor1">
-                  <input name="valor1" type="number" class="campos w80">
+                  <input name="valor1" type="number" class="campos w100">
                 </td>
                 <td id="deletar1">
                   <a href="#" onclick="deleteRow(1)">Deletar</a>
@@ -58,7 +58,7 @@
               </tr>
         </table>
         <div class="center" style="width: auto;">
-          <button class="btn-submit"><a style="text-decoration: none;" type="button" href="../main/index">Voltar</a></button>
+          <button type="button" class="btn-submit"><a style="text-decoration: none;" type="button" href="../main/index">Voltar</a></button>
           <button class="btn-submit plus-button" type="button" id="botaoAdd" onclick="addRow();"></button>
           <input class="btn-submit" type="submit" value="Gerar planilha">
         </div>
@@ -68,7 +68,7 @@
   </main>
     
   <script>
-        function buscaItens(prElemento){
+         function buscaItens(prElemento){
             var xhr = new XMLHttpRequest();
             let param = prElemento.value;
             let linha = prElemento.id[prElemento.id.length -1];
@@ -86,6 +86,7 @@
 
                     select.setAttribute("onchange", "buscaInfoItens(this)");
                     select.setAttribute("name", "descricao" + linha);
+                    select.setAttribute("class", "campos w100");
 
                     let placeholder = document.createElement("option");
                     placeholder.value = "0";
@@ -116,98 +117,25 @@
         function buscaInfoItens(prElemento){
           const xhr = new XMLHttpRequest();
           let param = prElemento.value;
-          let linha = prElemento.id[prElemento.id.length -1];
+          let pai_id = prElemento.parentNode.id;
+          let linha = pai_id[pai_id.length - 1];
 
-          xhr.open("GET", "../ajax/buscaItens.php?categoria=" + param , true);
+          xhr.open("GET", "../ajax/buscaInfoItens.php?sipac=" + param , true);
           xhr.onreadystatechange = function () {
-              if (xhr.readyState === 4 && xhr.status === 200) {
+                if (xhr.readyState === 4 && xhr.status === 200) {
                   var resposta = JSON.parse(xhr.responseText);
 
-                  let item = document.getElementById("item" + linha);
-
-                  var select = document.createElement("select");
-
-                  select.setAttribute("onchange", "buscaInfoItens(this)");
+                  let sipac = document.getElementById("sipac" + linha);
+                  let catmat_catser = document.getElementById("catmat_catser" + linha);
 
                   resposta.forEach(element => {
-                      // Cria e configura a opção
-                      var option = document.createElement("option");
-                      option.value = element["sipac"];
-                      option.textContent = element["descricao"];
-                      option.onchange = 'buscaInfoItens(this)';
-
-                      // Adiciona a opção ao select
-                      select.appendChild(option);
+                    sipac.innerHTML         = element["sipac"];
+                    catmat_catser.innerHTML = element["catmat_catser"];
                   });
 
-                  // Adiciona o select ao elemento item
-                  item.appendChild(select);
-              }
-          };
+                }
+            };
           xhr.send();
-      }
-
-      function buscaInfoItens(prElemento){
-        const xhr = new XMLHttpRequest();
-        let param = prElemento.value;
-        let pai_id = prElemento.parentNode.id;
-        let linha = pai_id[pai_id.length - 1];
-
-        xhr.open("GET", "../ajax/buscaInfoItens.php?sipac=" + param , true);
-        xhr.onreadystatechange = function () {
-              if (xhr.readyState === 4 && xhr.status === 200) {
-                var resposta = JSON.parse(xhr.responseText);
-
-                let sipac = document.getElementById("sipac" + linha);
-                let catmat_catser = document.getElementById("catmat_catser" + linha);
-
-                resposta.forEach(element => {
-                  sipac.innerHTML         = element["sipac"];
-                  catmat_catser.innerHTML = element["catmat_catser"];
-                });
-
-              }
-          };
-        xhr.send();
-      }
-
-      function addRow(){
-        let tabela = document.getElementById("tabela-pedido");
-        let linhas = tabela.rows.length;
-        let novaLinha = linhas + 1;
-        
-        tabela.innerHTML+=`
-          <tr>
-            <th scope="row">`+novaLinha+`</th>
-            <td>
-                <select name="" onchange="buscaItens(this)" id="categoria`+novaLinha+`">
-                    <option value="0"> --Selecione-- </option>
-                    <option value="teste">teste</option>
-                </select>
-            </td>
-            <td id="item`+novaLinha+`">
-
-            </td>
-            <td id="sipac`+novaLinha+`">
-              ---
-            </td>
-            <td id="catmat_catser`+novaLinha+`">
-              ---
-            </td>
-            <td id="deletar`+novaLinha+`">
-              <a href="#" onClick="deleteRow(`+novaLinha+`)">Deletar</a>
-            </td>
-          </tr>
-        `;
-        
-        let options = Array.from( document.getElementById('categoria1').options );
-        
-        options.unshift();
-
-        let newCategoria = document.getElementById('categoria' + novaLinha);
-        
-        for (option of options){
-          newCategoria.append(option);
         }
 
         function addRow(){
@@ -221,7 +149,7 @@
           `
               <th scope="row">`+novaLinha+`</th>
               <td>
-                  <select onchange="buscaItens(this)" id="categoria`+novaLinha+`">
+                  <select onchange="buscaItens(this)" id="categoria`+novaLinha+`" class="campos w100">
                   </select>
               </td>
               <td id="item`+novaLinha+`">
@@ -234,7 +162,7 @@
                 ---
               </td>
               <td id="valor`+novaLinha+`">
-                <input type="number" name="valor`+novaLinha+`">
+                <input type="number" name="valor`+novaLinha+`" class="campos w100">
               </td>
               <td id="deletar`+novaLinha+`">
                 <a href="#" onClick="deleteRow(`+novaLinha+`)">Deletar</a>
@@ -259,7 +187,6 @@
             linha.parentNode.removeChild(linha);
           }
         }
-      }
     </script>
 </body>
 </html>

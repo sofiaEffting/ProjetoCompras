@@ -45,10 +45,19 @@
 	width: 80%;
 	margin: 0;
 }
-
+.w100{
+	width: 100%;
+	margin: 0;
+}
 a {
 	text-decoration: underline;
 }
 a:hover {
 	color: #000080;
+}
+.div-tabela{
+	max-width: 100%;
+	overflow-x: auto;
+	height: auto;
+	margin: 0!important;
 }
