@@ -14,12 +14,18 @@
             <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
         </div>
     </header>
-    <form action="../PedidoFinal/criarPedido">
+    <form action="../PedidoFinal/criarPedido" method="post">
         <label>Siape:</label>
         <input type="siape" name="siape" id="siape" required>
         <br>
+        <label for="">Data inicial:</label>
+        <input type="date" name="data_ini" id="data_ini" required>
+        <br>
+        <label for="">Data Final:</label>
+        <input type="date" name="data_final" id="data_final" required>
+        <br>
         <label>Habilitação Especial:</label>
-        <input type="text" name="habilatacaoEspecial" id="habilatacaoEspecial" required>
+        <input type="text" name="habilitacao" id="habilitacao" required>
         <br>
         <label>Dotaçao:</label>
         <input type="text" name="dotacao" id="dotacao">

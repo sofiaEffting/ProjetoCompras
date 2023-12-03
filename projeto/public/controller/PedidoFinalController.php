@@ -4,7 +4,8 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-//Classe do pedido INDIVIDUAL
+use Database\ConnectionController as DB;
+
 class PedidoFinalController{
 
     public function index()
@@ -25,8 +26,8 @@ class PedidoFinalController{
 
         $pedidoFinal = new PedidoFinal;
         $pedidoFinal->setSiape_requisitante($_POST['siape']);
-        $pedidoFinal->setHabilitacao_especial($_POST['habilitacaoEspecial']);
-        $pedidoFinal->setDotacao($_POST['Dotacao']);
+        $pedidoFinal->setHabilitacao_especial($_POST['habilitacao']);
+        $pedidoFinal->setDotacao($_POST['dotacao']);
 
         $pedidoFinal->faz_tudo($_POST['data_ini'],$_POST['data_final']);
         
