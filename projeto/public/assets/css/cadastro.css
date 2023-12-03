@@ -13,7 +13,7 @@ body {
     background-color: white;
     min-height: 100vh;
     font-family: Arial, sans-serif;
-    overflow-x: hidden;
+
 }
 
 /* DEIXAR LINKS SEM AZUL */
@@ -82,22 +82,30 @@ h3 {
     margin: 5rem;   
 }
 
+.btn-submit:hover{
+    transition: background-color 0.3s;
+    color: white;
+    background-color: #000080;
+}
+.btn-submit:hover a {
+    color: white;
+}
 /* botão submit do form */
 .btn-submit {
-    background-color: var(--azul);
-    color: white;
+    background-color: white;
+    color: var(--azul);
     cursor: pointer;
     font-weight: bold;
-    border: none;
-    padding: 0.5rem;
-    font-size: 1rem;
-    width: 20vw;
+    border: 1px solid var(--azul);
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    width: 15vw;
     margin-top: 1rem;
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 1rem;
 }
 .btn-submit a {
-    color: white;
+    color: var(--azul);
 }
 .only {
     width: 40rem;
@@ -141,7 +149,10 @@ textarea:focus, input:focus, select:focus {
     box-shadow: 0 1px var(--azul);
     outline: 0;
 } 
-
+select {
+    background-color: white;
+    color: gray;
+}
 @media (max-width: 700px) {
     .titulo {
         height: auto;

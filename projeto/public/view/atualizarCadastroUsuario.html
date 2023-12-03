@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/cadastro.css">
     <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="img/logoifc.png" type="image/x-icon">
     <title>SCA - Sistema de Compras Acadêmicas</title>
-    <link rel="icon" type="image/x-icon" href="/img/logoifc.png">
 </head>
 <body>
     <header>
-        <h1 id="sca" style="color:white">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
+        <div class="titulo">        
+            <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
+            <span class="mobile">SCA - IFC Blumenau</span>
+            <a href="../main/logout">SAIR</a>
+        </div>
     </header>
+    <main>
     {% if user['nivel_acesso'] == 1 %}
 
     <!-- Estilizar essa mensagem -->
@@ -23,42 +26,29 @@
         </div>
     {% endif %}
 
-    <div class="div1mais">
-        <div class="janela-acc">
-            <p id="txy">DADOS DO CADASTRO</p>
-        </div><br>
-        <div class="div1form">
-            <div class="container">
+    <div class="center">
+        <div class="div-form">
+            <h3>DADOS DO CADASTRO</h3>
                 <form action="../cadastro/alterar" method="post">
                     <input type="hidden" name="siape" value="{{user['siape']}}">
-                    <div class="form-group">
-                        <label for="nome">Nome completo</label>
-                        <input value="{{user['nome']}}" type="text" name="nome" id="name" class="form-control" placeholder="Nome Completo*" required autocomplete="off" maxlength="150">
-                    </div><br>
-                    <div class="form-group">
-                        <input value="{{user['nome_social']}}" type="text" name="nome_social" id="nome_social" class="form-control" placeholder="Nome Social" autocomplete="off" maxlength="150">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="text" value="{{user['nome_substituto']}}" name="nome_substituto" id="nome_substituto" class="form-control" placeholder="Nome do substituto" autocomplete="off" maxlength="150">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="text" value="{{user['setor']}}" name="setor" id="setor" class="form-control" placeholder="Unidade de Exercício (Setor)*" required autocomplete="off" maxlength="255">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="email" value="{{user['email']}}" name="email" id="email" class="form-control" placeholder="E-mail*" required autocomplete="off" maxlength="255">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="text" value="{{user['telefone']}}" name="telefone" id="telefone" class="form-control" placeholder="Telefone*" required autocomplete="off">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="password"  name="senha" id="senha" class="form-control" minlength="8" placeholder="Senha*" required autocomplete="off" maxlength="32">
-                    </div><br>
-                    
-                
-                    <div class="centre">
-                        <a id="link" class="btn-pad btn-pad1" href="../cadastro/deletarConta/{{user['siape']}}">Deletar</a>
-                        <input type="submit" id="link" class="btn-pad btn-pad1" value="Alterar">
-                        <a id="link" class="btn-pad btn-pad1" href="../main/index">Voltar</a>
+                    <input value="{{user['nome']}}" type="text" name="nome" id="name" class="campos" placeholder="Nome Completo*" required autocomplete="off" maxlength="150">
+                    <br>       
+                    <input value="{{user['nome_social']}}" type="text" name="nome_social" id="nome_social" class="campos" placeholder="Nome Social" autocomplete="off" maxlength="150">
+                    <br>
+                    <input type="text" value="{{user['nome_substituto']}}" name="nome_substituto" id="nome_substituto" class="campos" placeholder="Nome do substituto" autocomplete="off" maxlength="150">
+                    <br>
+                    <input type="text" value="{{user['setor']}}" name="setor" id="setor" class="campos" placeholder="Unidade de Exercício (Setor)*" required autocomplete="off" maxlength="255">
+                    <br>
+                    <input type="email" value="{{user['email']}}" name="email" id="email" class="campos" placeholder="E-mail*" required autocomplete="off" maxlength="255">
+                    <br>
+                    <input type="text" value="{{user['telefone']}}" name="telefone" id="telefone" class="campos" placeholder="Telefone*" required autocomplete="off">
+                    <br>
+                    <input type="password"  name="senha" id="senha" class="campos" minlength="8" placeholder="Senha*" required autocomplete="off" maxlength="32">
+                    <br><br>
+                    <div class="bnts-form">
+                        <button  class="btn-submit"><a id="link" href="../main/index">Voltar</a></button>
+                        <button class="btn-submit"><a id="link" href="../cadastro/deletarConta/{{user['siape']}}">Deletar</a></button>
+                        <input type="submit" id="link" class="btn-submit" value="Alterar">
                     </form>
                 </div>
             </div>

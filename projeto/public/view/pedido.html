@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/pag_principal.css">
+    <link rel="stylesheet" href="../assets/css/cadastro.css">
+    <link rel="stylesheet" href="../assets/css/historico.css">
+    <link rel="stylesheet" href="../assets/css/pedido.css">
     <link rel="shortcut icon" href="img/logoifc.png" type="image/x-icon">
     <title>SCA - Sistema de Compras Acadêmicas</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/pedido.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-    <header class="titulo">        
-        <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
-        <span class="mobile">SCA - IFC Blumenau</span>
-        <a href="../main/logout">SAIR</a>
-    </header>
-    <form id="formulario" action="../pedido/gerarPedido" method="POST">
-      <div class="table-wrapper">
-        <table class="table" style="margin: 2% auto; width: 100%;">
-            <thead class="thead-dark">
+  <header>
+    <div class="titulo">        
+      <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
+      <span class="mobile">SCA - IFC Blumenau</span>
+      <a href="../main/logout">SAIR</a>
+    </div>
+  </header>
+  <main>
+    <div class="center margin-top-5rem">
+      <h3>FAZER PEDIDO</h3>
+    </div>
+    <div class="div-tabela center">
+      <form id="formulario" action="../pedido/gerarPedido" method="POST">
+        <table>
+            <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Categoria</th>
@@ -35,40 +39,35 @@
               <tr>
                 <th scope="row">1</th>
                 <td>
-                    <select name="" onchange="buscaItens(this)" id="categoria1">
+                    <select name="" onchange="buscaItens(this)" id="categoria1" class="campos w80">
                         <option value="0"> --Selecione-- </option>
                         {% for registro in categorias %}
                           <option value="{{ registro['nome_categoria'] }}">{{ registro['nome_categoria'] }} </option>
                         {% endfor %}
                     </select>
                 </td>
-                <td id="item1">
-
-                </td>
-                <td id="sipac1">
-                  ---
-                </td>
-                <td id="catmat_catser1">
-                  ---
-                </td>
+                <td id="item1"></td>
+                <td id="sipac1">  ---</td>
+                <td id="catmat_catser1">  ---</td>
                 <td id="valor1">
-                  <input name="valor1" type="number">
+                  <input name="valor1" type="number" class="campos w80">
                 </td>
                 <td id="deletar1">
                   <a href="#" onclick="deleteRow(1)">Deletar</a>
                 </td>
               </tr>
-            </tbody>
-          </table>
-          <div style="width: 100%; text-align: center;">
-            <button class="plus-button" type="button" id="botaoAdd" onclick="addRow();"></button>
-          </div>
-        <input class="pedido-button btn-pad btn-pad1" type="submit" value="Gerar planilha">
-        <a class="btn-pad btn-pad1" style="text-decoration: none;" type="button" href="../main/index">Voltar</a>
+        </table>
+        <div class="center" style="width: auto;">
+          <button class="btn-submit"><a style="text-decoration: none;" type="button" href="../main/index">Voltar</a></button>
+          <button class="btn-submit plus-button" type="button" id="botaoAdd" onclick="addRow();"></button>
+          <input class="btn-submit" type="submit" value="Gerar planilha">
+        </div>
+        
       </div>
     </form>
-
-    <script>
+  </main>
+    
+  <script>
         function buscaItens(prElemento){
             var xhr = new XMLHttpRequest();
             let param = prElemento.value;
@@ -117,25 +116,98 @@
         function buscaInfoItens(prElemento){
           const xhr = new XMLHttpRequest();
           let param = prElemento.value;
-          let pai_id = prElemento.parentNode.id;
-          let linha = pai_id[pai_id.length - 1];
+          let linha = prElemento.id[prElemento.id.length -1];
 
-          xhr.open("GET", "../ajax/buscaInfoItens.php?sipac=" + param , true);
+          xhr.open("GET", "../ajax/buscaItens.php?categoria=" + param , true);
           xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
+              if (xhr.readyState === 4 && xhr.status === 200) {
                   var resposta = JSON.parse(xhr.responseText);
 
-                  let sipac = document.getElementById("sipac" + linha);
-                  let catmat_catser = document.getElementById("catmat_catser" + linha);
+                  let item = document.getElementById("item" + linha);
+
+                  var select = document.createElement("select");
+
+                  select.setAttribute("onchange", "buscaInfoItens(this)");
 
                   resposta.forEach(element => {
-                    sipac.innerHTML         = element["sipac"];
-                    catmat_catser.innerHTML = element["catmat_catser"];
+                      // Cria e configura a opção
+                      var option = document.createElement("option");
+                      option.value = element["sipac"];
+                      option.textContent = element["descricao"];
+                      option.onchange = 'buscaInfoItens(this)';
+
+                      // Adiciona a opção ao select
+                      select.appendChild(option);
                   });
 
-                }
-            };
+                  // Adiciona o select ao elemento item
+                  item.appendChild(select);
+              }
+          };
           xhr.send();
+      }
+
+      function buscaInfoItens(prElemento){
+        const xhr = new XMLHttpRequest();
+        let param = prElemento.value;
+        let pai_id = prElemento.parentNode.id;
+        let linha = pai_id[pai_id.length - 1];
+
+        xhr.open("GET", "../ajax/buscaInfoItens.php?sipac=" + param , true);
+        xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                var resposta = JSON.parse(xhr.responseText);
+
+                let sipac = document.getElementById("sipac" + linha);
+                let catmat_catser = document.getElementById("catmat_catser" + linha);
+
+                resposta.forEach(element => {
+                  sipac.innerHTML         = element["sipac"];
+                  catmat_catser.innerHTML = element["catmat_catser"];
+                });
+
+              }
+          };
+        xhr.send();
+      }
+
+      function addRow(){
+        let tabela = document.getElementById("tabela-pedido");
+        let linhas = tabela.rows.length;
+        let novaLinha = linhas + 1;
+        
+        tabela.innerHTML+=`
+          <tr>
+            <th scope="row">`+novaLinha+`</th>
+            <td>
+                <select name="" onchange="buscaItens(this)" id="categoria`+novaLinha+`">
+                    <option value="0"> --Selecione-- </option>
+                    <option value="teste">teste</option>
+                </select>
+            </td>
+            <td id="item`+novaLinha+`">
+
+            </td>
+            <td id="sipac`+novaLinha+`">
+              ---
+            </td>
+            <td id="catmat_catser`+novaLinha+`">
+              ---
+            </td>
+            <td id="deletar`+novaLinha+`">
+              <a href="#" onClick="deleteRow(`+novaLinha+`)">Deletar</a>
+            </td>
+          </tr>
+        `;
+        
+        let options = Array.from( document.getElementById('categoria1').options );
+        
+        options.unshift();
+
+        let newCategoria = document.getElementById('categoria' + novaLinha);
+        
+        for (option of options){
+          newCategoria.append(option);
         }
 
         function addRow(){
@@ -187,6 +259,7 @@
             linha.parentNode.removeChild(linha);
           }
         }
+      }
     </script>
 </body>
 </html>

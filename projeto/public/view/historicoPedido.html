@@ -1,48 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/historico.css">
+    <link rel="stylesheet" href="../assets/css/cadastro.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <title>SCA - Sistema de Compras Acadêmicas</title>
+    <link rel="shortcut icon" href="img/logoifc.png" type="image/x-icon">
 </head>
 <body>
-    {% if user['nivel_acesso'] == 0 %}
-    <h1>HISTORICO GERAL DO ADMINISTRADOR</h1>
-    {% endif %}
+    <header>
+        <div class="titulo">        
+            <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
+            <span class="mobile">SCA - IFC Blumenau</span>
+            <a href="../main/logout">SAIR</a>
+        </div>
+    </header>
+    <main>
+        <div class="center margin-top-5rem">
+            {% if user['nivel_acesso'] == 0 %}
+            <h3>HISTÓRICO GERAL DO ADMINISTRADOR</h3>
+            {% endif %}
+        </div>
 
-    <table border="1px">
-        <tr>
-            <th>id</th>
-            <th>siape requisitante</th>
-            <th>valor estimado unidade</th>
-            <th>Quantidade</th>
-            <th>justificativa necessidade</th>
-            <th>justificativa qtde</th>
-            <th>prioridade</th>
-            <th>data compra</th>
-            <th>vinculacao</th>
-            <th>almoxarifado</th>
-            <th>ciencia</th>
-            <th>atorizacao</th>
-        </tr>
-        {% for pedidos in pedidos%}
-            <tr>
-                <td>{{pedidos['id']}}</td>
-                <td>{{pedidos['siape_requisitante']}}</td>
-                <td>{{pedidos['valor_estimado_unidade']}}</td>
-                <td>{{pedidos['qtde']}}</td>
-                <td>{{pedidos['justificativa_necessidade']}}</td>
-                <td>{{pedidos['justificativa_qtde']}}</td>
-                <td>{{pedidos['prioridade']}}</td>
-                <td>{{pedidos['data_compra']}}</td>
-                <td>{{pedidos['vinculacao']}}</td>
-                <td>{{pedidos['almoxarifado']}}</td>
-                <td>{{pedidos['ciencia']}}</td>
-                <td>{{pedidos['atorizacao']}}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    
-
+        <div class="div-tabela">
+            <table> 
+                <thead>
+                    <tr>
+                        <th>Siape do Requisitante</th>
+                        <th>Valor Estimado da Unidade</th>
+                        <th>Quantidade</th>
+                        <th>Justificativa da Necessidade</th>
+                        <th>Justificativa da Quantidade</th>
+                        <th>Nível de Prioridade</th>
+                        <th>Data da Compra</th>
+                        <th>Vinculação</th>
+                        <th>Almoxarifado</th>
+                        <th>Ciência</th>
+                        <th>Autorização</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedidos in pedidos%}
+                    <tr>
+                        <td>{{pedidos['siape_requisitante']}}</td>
+                        <td>{{pedidos['valor_estimado_unidade']}}</td>
+                        <td>{{pedidos['qtde']}}</td>
+                        <td>{{pedidos['justificativa_necessidade']}}</td>
+                        <td>{{pedidos['justificativa_qtde']}}</td>
+                        <td>{{pedidos['prioridade']}}</td>
+                        <td>{{pedidos['data_compra']}}</td>
+                        <td>{{pedidos['vinculacao']}}</td>
+                        <td>{{pedidos['almoxarifado']}}</td>
+                        <td>{{pedidos['ciencia']}}</td>
+                        <td>{{pedidos['atorizacao']}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>  
+        </div>      
+    </main>
 </body>
 </html>
