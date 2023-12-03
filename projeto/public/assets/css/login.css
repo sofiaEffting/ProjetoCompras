@@ -8,10 +8,10 @@ html {
 } 
 body {
     background-color: white;
-    height: 100vh;
+    min-height: 100vh;
     font-family: Arial, sans-serif;
 }
-a {
+a { 
     text-decoration: none;
     color: black;
 }
@@ -59,8 +59,8 @@ h3 {
     font-size: 1.2rem;
     margin: 0;
 }
-
-.btn-login {
+/* botão submit do form */
+.btn-submit {
     background-color: var(--azul);
     color: white;
     cursor: pointer;
@@ -84,7 +84,7 @@ span {
 span i {
     padding-right: 5px;
 }
-
+/* estilização dos campos do formulário */
 .campos {
     border: 0;
     border-bottom: 1px solid gray;
