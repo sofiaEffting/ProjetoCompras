@@ -101,4 +101,9 @@ class PedidoController{
         
         return $template->render($params);
     }
+
+    public function check(){
+        
+
+    }
 }

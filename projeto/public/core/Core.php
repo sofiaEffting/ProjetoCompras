@@ -50,7 +50,7 @@ class Core
 
         if ($this->user) {
             //Controllers que o usuário tem acesso
-            $pg_permission = ['MainController', 'ItemController','CadastroController', 'PedidoController'];
+            $pg_permission = ['MainController', 'ItemController','CadastroController', 'PedidoController','PedidoFinalController'];
 
             if (!isset($this->controller) || !in_array( $this->controller , $pg_permission )){
                 $this->controller = 'MainController';

@@ -13,11 +13,13 @@
     require_once './controller/MainController.php';
     require_once './controller/ItemController.php';
     require_once './controller/PedidoController.php';
+    require_once './controller/PedidoFinalController.php';
 
     //models
     require_once './model/User.php';
     require_once './model/Item.php';
     require_once './model/Pedido.php';
+    require_once './model/PedidoFinal.php';
 
     //twig & PhpSpreadsheets
     require_once 'vendor/autoload.php';
