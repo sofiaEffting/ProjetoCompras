@@ -101,4 +101,9 @@ class PedidoController{
         $template = $twig->load('historicoPedido.html');
         return $template->render($params);
     }
+
+    public function check(){
+        
+
+    }
 }
