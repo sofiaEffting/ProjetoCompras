@@ -3,34 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/pedidofinal.css">
+    <link rel="stylesheet" href="../assets/css/cadastro.css">
     <link rel="shortcut icon" href="img/logoifc.png" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
     <title>SCA - Sistema de Compras Acadêmicas</title>
 </head>
 <body>
     <header>
-        <div class="titulo">
-            <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
+        <div class="titulo">        
+          <h1 class="sca">SCA - Sistema de Compras Acadêmicas IFC Blumenau</h1>
+          <span class="mobile">SCA - IFC Blumenau</span>
+          <a href="../main/logout">SAIR</a>
         </div>
-    </header>
-    <form action="../PedidoFinal/criarPedido" method="post">
-        <label>Siape:</label>
-        <input type="siape" name="siape" id="siape" required>
-        <br>
-        <label for="">Data inicial:</label>
-        <input type="date" name="data_ini" id="data_ini" required>
-        <br>
-        <label for="">Data Final:</label>
-        <input type="date" name="data_final" id="data_final" required>
-        <br>
-        <label>Habilitação Especial:</label>
-        <input type="text" name="habilitacao" id="habilitacao" required>
-        <br>
-        <label>Dotaçao:</label>
-        <input type="text" name="dotacao" id="dotacao">
-        <br>
-        <input type="submit" value="Criar Pedido">
-    </form>
+      </header>
+    <main>
+        <div class="center">
+            <div class="div-form">
+                <h3>FAZER PEDIDO FINAL</h3>
+                <form action="../PedidoFinal/criarPedido" method="post">
+                    <input type="siape" name="siape" id="siape" required class="campos" placeholder="SIAPE*">
+                    <br>
+                    <input type="date"  style="color: gray;" name="data_ini" id="data_ini" required class="campos" placeholder="Data Inicial*">
+                    <br>
+                    <input type="date" style="color: gray;" name="data_final" id="data_final" required class="campos" placeholder="Data Final*">
+                    <br>
+                    <input type="text" name="habilitacao" id="habilitacao" required class="campos" placeholder="Habilitacao*">
+                    <br>
+                    <input type="text" name="dotacao" id="dotacao" placeholder="Dotacação" class="campos">
+                    <br>
+                    <input type="submit" value="Criar Pedido" class="btn-submit">
+                </form>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
