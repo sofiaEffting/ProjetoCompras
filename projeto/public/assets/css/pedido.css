@@ -34,25 +34,30 @@
 
 .plus-button:hover{
     background-color: #000080;
+	
+	&::before, &::after {
+		background-color: white;
+	}
 
 }
 
-.table-wrapper{
-    width: 80vw;
-    margin: 0 auto;
+.w80 {
+	width: 80%;
+	margin: 0;
 }
-
-.pedido-button{
-    float: right;
-    padding: 3px;
-    background-color: white;
-    border: 1px solid black;
-    color: #000080;
-    cursor: pointer;
+.w100{
+	width: 100%;
+	margin: 0;
 }
-
-.pedido-button:hover{
-    transition: background-color 0.3s;
-    color: white;
-    background-color: #000080;
+a {
+	text-decoration: underline;
+}
+a:hover {
+	color: #000080;
+}
+.div-tabela{
+	max-width: 100%;
+	overflow-x: auto;
+	height: auto;
+	margin: 0!important;
 }

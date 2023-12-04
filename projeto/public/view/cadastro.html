@@ -16,6 +16,7 @@
             <a href="../main/logout">SAIR</a>
         </div>
     </header>
+    <main>
     {% if user['nivel_acesso'] == 1 %}
 
     <!-- Estilizar essa mensagem -->
@@ -24,46 +25,33 @@
             {{msg}}
         </div>
     {% endif %}
-
-    <div class="div1mais">
-        <div class="janela-acc">
-            <p id="txy">DADOS CADASTRAIS</p>
-        </div><br>
-        <div class="div1form">
-            <div class="container">
+        <div class="center">
+            <div class="div-form">
+                <h3>DADOS DO CADASTRO</h3>
                 <form action="../cadastro/check" method="post">
-                    <div class="form-group">
-                        <input type="text" name="siape" id="siape" class="form-control" placeholder="Matrícula SIAPE*" required autocomplete="off" maxlength="10">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="text" name="nome" id="name" class="form-control" placeholder="Nome Completo*" required autocomplete="off" maxlength="150">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="text" name="nome_social" id="nome_social" class="form-control" placeholder="Nome Social" autocomplete="off" maxlength="150">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="text" name="nome_substituto" id="nome_substituto" class="form-control" placeholder="Nome do substituto" autocomplete="off" maxlength="150">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="text" name="setor" id="setor" class="form-control" placeholder="Unidade de Exercício (Setor)*" required autocomplete="off" maxlength="255">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control" placeholder="E-mail*" required autocomplete="off" maxlength="255">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone*" required autocomplete="off">
-                    </div><br>
-                    <div class="form-group">
-                        <input type="password" name="senha" id="senha" class="form-control" minlength="8" placeholder="Senha*" required autocomplete="off" maxlength="32">
-                    </div><br>
-                
-                    <div class="centre">
-                        <input type="submit" id="link" class="btn-pad btn-pad1" value="Cadastrar">
-                        <a id="link" class="btn-pad btn-pad1" href="../main/index">Voltar</a>
-                    </form>
-                </div>
+                    <input type="text" name="siape" id="username" class="campos" placeholder="Matrícula SIAPE*" required autofocus autocomplete="off" maxlength="10">
+                    <br>
+                    <input type="text" name="nome" id="name" class="campos" placeholder="Nome Completo*" required autocomplete="off" maxlength="150">
+                    <br>
+                    <input type="text" name="nomesocial" id="nomesocial" class="campos" placeholder="Nome Social" autocomplete="off" maxlength="150">
+                    <br>
+                    <input type="text" name="nome_substituto" id="nome_substituto" class="campos" placeholder="Nome do substituto" autocomplete="off" maxlength="150">
+                    <br>
+                    <input type="text" name="setor" id="uniserver" class="campos" placeholder="Unidade de Exercício (Setor)*" required autocomplete="off" maxlength="255">
+                    <br>
+                    <input type="email" name="email" id="email" class="campos" placeholder="E-mail*" required autocomplete="off" maxlength="255">
+                    <br>
+                    <input type="text" name="telefone" id="telefone" class="campos" placeholder="Telefone*" required autocomplete="off">
+                    <br>
+                    <input type="password" name="senha" id="senha" class="campos" minlength="8" placeholder="Senha*" required autocomplete="off" maxlength="32">
+                    <br><br>
+                    <div class="bnts-form">
+                        <button type="button" class="btn-submit"><a id="link" href="../main/index">Voltar</a></button>
+                        <input type="submit" id="link" class="btn-submit" value="Cadastrar">
+                    </div>
+                </form>
             </div>
-    </div>
+    </main>
     {% endif %}
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
