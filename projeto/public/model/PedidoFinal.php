@@ -50,7 +50,7 @@ class PedidoFinal{
     
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $pedidoInfo = array(
-                'idpedido' => $row['idpedido'],
+                'idpedido' => $row['id'],
                 'quantidade' => $row['qtde']
             );
             $pedidosInfo[] = $pedidoInfo;
@@ -70,7 +70,7 @@ class PedidoFinal{
             $quantidade = $pedido['quantidade'];
             
             // Consulta para obter os IDs de produtos relacionados ao pedido
-            $sql = "SELECT idproduto FROM pedido_to_pedido_compra_ind WHERE idpedido = :idPedido";
+            $sql = "SELECT id_produto FROM pedido_to_pedido_compra_ind WHERE id_pci = :idPedido";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':idPedido', $idPedido);
             
@@ -82,7 +82,7 @@ class PedidoFinal{
             
             // Itera sobre os resultados da consulta
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $idProduto = $row['idproduto'];
+                $idProduto = $row['id_produto'];
                 
                 // Combina o ID do produto com a quantidade do pedido
                 $result[] = array(
@@ -107,7 +107,7 @@ class PedidoFinal{
             $quantidade = $item['quantidade'];
             
             // Consulta para obter os dados do produto
-            $sql = "SELECT sipac, descricao FROM produto WHERE id = :idProduto";
+            $sql = "SELECT sipac, descricao FROM produto WHERE sipac = :idProduto";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':idProduto', $idProduto);
             

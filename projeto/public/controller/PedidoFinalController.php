@@ -30,7 +30,7 @@ class PedidoFinalController{
         $pedidoFinal->setDotacao($_POST['dotacao']);
 
         $lista = $pedidoFinal->faz_tudo($_POST['data_ini'],$_POST['data_final']);
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = new Spreadsheet("pedidofinal.xlsx");
 
         $sheet = $spreadsheet->getActiveSheet();
         
@@ -53,6 +53,7 @@ class PedidoFinalController{
         $writer = new Xlsx($spreadsheet);
 
         $writer->save('php://output');
+
         }catch(\Exception $e) {
 
             $_SESSION['msg_error'] = array('msg' => $e->getMessage(), 'count' => 0);
@@ -60,7 +61,6 @@ class PedidoFinalController{
             header('Location: ../');
             
         }
-
-        header('Location: ../main/index');
+    header('Location: ../'); 
 }
 }
