@@ -35,9 +35,9 @@ class PedidoFinal{
     private function juntar_pedido($date_ini, $date_final){
         $conn = ConnectionController::connectDb();
         
-        $idsPedidos = array();
+        $pedidosInfo = array(); // Agora armazenará tanto o ID quanto a quantidade
         
-        $sql = "SELECT id FROM pedido_compra_individual WHERE data BETWEEN :date_ini AND :date_final";
+        $sql = "SELECT id, qtde FROM pedido_compra_individual WHERE data BETWEEN :date_ini AND :date_final";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':date_ini', $date_ini);
         $stmt->bindParam(':date_final', $date_final);
@@ -49,67 +49,86 @@ class PedidoFinal{
         }
     
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $idsPedidos[] = $row['id'];
+            $pedidoInfo = array(
+                'idpedido' => $row['idpedido'],
+                'quantidade' => $row['qtde']
+            );
+            $pedidosInfo[] = $pedidoInfo;
         }
-    
-        return $idsPedidos;
+        return $pedidosInfo;
     }
 
-    private function geraListaProdutos($idsPedidos){
+    private function geraListaProdutos($pedidosInfo) {
         $conn = ConnectionController::connectDb();
         
-        $produtosQuantidades = array();
+        // Array para armazenar as informações finais
+        $result = array();
         
-        // Consulta SQL para obter os IDs dos produtos e quantidades associadas aos IDs dos pedidos
-        $sql = "SELECT id_pci, id_produto, SUM(qtde) as qtde FROM pedido_to_pedido_compra_ind WHERE id_pci IN (" . implode(",", $idsPedidos) . ") GROUP BY id_pci, id_produto";
-        $stmt = $conn->prepare($sql);
-        
-        // Verifica se a preparação da consulta foi bem-sucedida
-        if (!$stmt->execute()) {
-            $errorInfo = $stmt->errorInfo();
-            $errorMessage = isset($errorInfo[2]) ? $errorInfo[2] : "Erro desconhecido ao executar a consulta SQL";
-            throw new Exception("Erro ao executar a consulta SQL: " . $errorMessage);
-        }
-    
-        // Adiciona os produtos e quantidades ao array
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $idProduto = $row['id_produto'];
-            $quantidade = $row['qtde']; // corrigi o nome do campo
-    
-            if (!isset($produtosQuantidades[$idProduto])) {
-                $produtosQuantidades[$idProduto] = $quantidade;
-            } else {
-                $produtosQuantidades[$idProduto] += $quantidade;
+        // Itera sobre cada pedido no array $pedidosInfo
+        foreach ($pedidosInfo as $pedido) {
+            $idPedido = $pedido['idpedido'];
+            $quantidade = $pedido['quantidade'];
+            
+            // Consulta para obter os IDs de produtos relacionados ao pedido
+            $sql = "SELECT idproduto FROM pedido_to_pedido_compra_ind WHERE idpedido = :idPedido";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':idPedido', $idPedido);
+            
+            if (!$stmt->execute()) {
+                $errorInfo = $stmt->errorInfo();
+                $errorMessage = isset($errorInfo[2]) ? $errorInfo[2] : "Erro desconhecido ao executar a consulta SQL";
+                throw new Exception("Erro ao executar a consulta SQL: " . $errorMessage);
+            }
+            
+            // Itera sobre os resultados da consulta
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $idProduto = $row['idproduto'];
+                
+                // Combina o ID do produto com a quantidade do pedido
+                $result[] = array(
+                    'idproduto' => $idProduto,
+                    'quantidade' => $quantidade
+                );
             }
         }
-    
-        return $produtosQuantidades;
+        
+        return $result;
     }
 
-    private function geraListaFinal($idsProdutosQuantidades){
+    private function geraListaFinal($result) {
         $conn = ConnectionController::connectDb();
         
-        $detalhesProdutos = array();
+        // Array para armazenar os dados finais do produto
+        $dadosProdutos = array();
         
-        // Consulta SQL para obter informações detalhadas dos produtos
-        $sql = "SELECT * FROM produto WHERE sipac IN (" . implode(",", array_keys($idsProdutosQuantidades)) . ")";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-
-        // Adiciona as informações detalhadas dos produtos ao array
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $sipac = $row['sipac'];
-            $descricao = $row['descricao'];
-            $quantidade = $idsProdutosQuantidades[$sipac];
-    
-            $detalhesProdutos[] = array(
-                'sipac' => $sipac,
-                'descricao' => $descricao,
-                'quantidade' => $quantidade
-            );
+        // Itera sobre cada entrada no array $result
+        foreach ($result as $item) {
+            $idProduto = $item['idproduto'];
+            $quantidade = $item['quantidade'];
+            
+            // Consulta para obter os dados do produto
+            $sql = "SELECT sipac, descricao FROM produto WHERE id = :idProduto";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':idProduto', $idProduto);
+            
+            if (!$stmt->execute()) {
+                $errorInfo = $stmt->errorInfo();
+                $errorMessage = isset($errorInfo[2]) ? $errorInfo[2] : "Erro desconhecido ao executar a consulta SQL";
+                throw new Exception("Erro ao executar a consulta SQL: " . $errorMessage);
+            }
+            
+            // Obtém os dados do produto e armazena no array final
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $dadosProduto = array(
+                    'sipac' => $row['sipac'],
+                    'descricao' => $row['descricao'],
+                    'quantidade' => $quantidade
+                );
+                $dadosProdutos[] = $dadosProduto;
+            }
         }
-    
-        return $detalhesProdutos;
+        
+        return $dadosProdutos;
     }
 
     private function cadastra_pedido(){
@@ -134,15 +153,9 @@ class PedidoFinal{
     public function faz_tudo($date_ini, $date_final){
         // Função que fará tudo para facilitar a implementação do pedido final no controller.
         $idpedidos = $this->juntar_pedido($date_ini,$date_final);
-        echo "saiu";
         $lista_idprodutos = $this->geraListaProdutos($idpedidos);
-        echo "saiu 2";
         $lista_final = $this->geraListaFinal($lista_idprodutos);
-        echo "saiu 3";
-        // Nesta linha sera inserida a função que gera o excel.
-        echo "passou aqui 3";
         $this->cadastra_pedido();
-        echo "passou aqui 4";
-        return true;
+        return $lista_final;
     }
 }
